@@ -1,1 +1,56 @@
-This is only a test
+<head></head>
+<div class="container">
+<h1 class="heading">Hello, World!!</h1>
+</div>
+
+<style>
+  .container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.heading{
+  letter-spacing: 1rem;
+  font-family: fantasy;
+  color: blue;
+}
+
+span{
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: all 0.4s ease-in-out
+}
+
+.fade{
+ opacity: 1;
+ transform: translateY(0);
+}
+  
+</style>
+<script>
+  const heading = document.querySelector('.heading');
+const characters = heading.textContent.match(/[\w\W]/g);    //Get the texts and create an array.
+heading.textContent = '';    //Empty the contents.
+
+// Loop through each character and push it inside heading element as a new span element.
+characters.forEach(char => {
+  const span = document.createElement('span');
+  span.textContent = char;
+  heading.appendChild(span);
+});
+
+// Create charcter count variable and set timer with new function called setChar().
+let char = 0;
+let timer = setInterval(setChar, 100);
+
+//Stop the interval when all characters are rendered else set character span class to fade.
+function setChar(){
+  const spanChar = document.querySelectorAll('span')[char];
+  spanChar.className = 'fade';
+  char++;
+  char === characters.length && clearInterval(timer);
+}
+</script>
