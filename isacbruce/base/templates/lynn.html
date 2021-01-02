@@ -1,0 +1,179 @@
+
+<script type="text/javascript">
+
+var myElement = document.getElementById("target");
+document.getElementById("initiator").innerHTML =
+"The text from the intro paragraph is " + myElement.innerHTML;
+
+
+</script>
+<script type="text/javascript">
+  var animateHTML = function() {
+    var elems;
+    var windowHeight;
+
+    function init() {
+
+    elems = document.querySelectorAll('.hidden');
+    windowHeight = window.innerHeight;
+    addEventHandlers();
+    checkPosition();
+    }
+
+    function addEventHandlers() {
+    window.addEventListener('scroll', checkPosition);
+    window.addEventListener('resize', init);
+    }
+
+    function checkPosition() {
+    for (var i = 0; i < elems.length; i++) {
+    var positionFromTop = elems[i].getBoundingClientRect().top;
+    if (positionFromTop - windowHeight <= 0) {
+    elems[i].className = elems[i].className.replace(
+    'hidden',
+    'fade-in-element'
+    );
+    }
+
+    if ((positionFromTop - windowHeight > 1) || (positionFromTop < 0)) {
+    elems[i].className = elems[i].className.replace(
+    'fade-in-element'
+    );
+    }
+    }
+    }
+
+    return {
+    init: init
+    };
+    };
+
+
+</script>
+
+<style media="screen">
+  h1 {
+  	<!-- box-shadow: .6em 0 0 #05ffa3; -->
+    margin: 2rem 1rem;
+  	width: 23ch;
+    overflow: hidden;
+    color: #000;
+  	white-space: nowrap;
+  	-webkit-animation: caret .5s step-end infinite alternate,
+               type 5s steps(23, end);
+  	        animation: caret .5s step-end infinite alternate,
+               type 5s steps(23, end)
+  }
+
+
+
+  @-webkit-keyframes type {
+    0% {
+      width: 0;
+    }
+
+  }
+
+
+
+  @keyframes type {
+    0% {
+      width: 0;
+    }
+
+  }
+  @-webkit-keyframes caret {
+    50% {
+      box-shadow: .6em 0 0 transparent;
+    }
+  }
+  @keyframes caret {
+    50% {
+      box-shadow: .6em 0 0 transparent;
+    }
+  }
+</style>
+
+
+<style media="screen">
+
+
+
+  @import url(https://fonts.googleapis.com/css?family=Karla);
+
+  /* body {
+    font-family: "Karla", sans-serif;
+     text-align: center;
+     font-size: 50px;
+     padding-top: 100px;
+    background-color: #202020;
+    color: #f9f9f9;
+  } */
+
+  @keyframes blink{
+      0% { opacity:1; }
+      50% { opacity:0; }
+      100% { opacity:1; }
+  }
+  @-webkit-keyframes blink{
+      0% { opacity:1; }
+      50% { opacity:0; }
+      100% { opacity:1; }
+  }
+  @-moz-keyframes blink{
+      0% { opacity:1; }
+      50% { opacity:0; }
+      100% { opacity:1; }
+  }
+
+  .cursor {
+      animation: blink 0.7s infinite;
+  }
+
+  .hidden {
+    opacity: 0;
+  }
+
+  @keyframes fade-in {
+      from {opacity: 0; transform: scale(.7,.7)}
+      to {opacity: 1;}
+  }
+  .fade-in-element {
+    animation: fade-in 1.4s;
+  }
+
+
+
+</style>
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body onload="animateHTML().init();">
+    <img src="/static/downloads/Kards10/images/forest-night.jpeg" class="img-circle" alt="Bird">
+
+
+    <img src="/static/downloads/Kards10/images/forest-night.jpeg" class="img-circle" alt="Bird">
+    <div>
+      <p class="hidden">Hello</p>
+      <p>hellow</p>
+
+
+
+    </div>
+    <img src="/static/downloads/Kards10/images/forest-night.jpeg" class="img-circle" alt="Bird">
+    <div class="hidden">
+      <div class="hello">
+          <h1>Front-end developer.</h1>
+      </div>
+      <p>Hello</p>
+
+
+
+    </div>
+
+  </body>
+</html>

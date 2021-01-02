@@ -1,0 +1,54 @@
+
+.slideout-anim-wrap {
+  height: 64px;
+  font: normal normal 700 1em/4em Arial,sans-serif;
+  overflow: hidden;
+  width: 100%;
+  display: inline-block;
+  margin-bottom: 3em;
+}
+.slideout-anim-wrap, 
+.slide-anim-text {
+  -webkit-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -ms-transition: 0.3s;
+  transition: 0.3s;       
+}
+.slideout-anim-wrap span {
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+}
+
+.slide-anim-text{
+  margin-top: 0em;   
+}
+
+.slideout-anim-wrap:hover 
+.slide-anim-text{
+  margin-top: -4em;
+}
+
+/* Colors */
+
+.blue{
+	  background-color: #3b5998;	
+}
+
+.yellow{
+	  background-color: #f0c810;	
+}
+.red{
+	  background-color: #f0103a;	
+}
+.green{
+	  background-color: #62c810;	
+}
+.orange{
+	  background-color: #f28c08;	
+}
+.pink{
+	  background-color: #f308eb;	
+}
+

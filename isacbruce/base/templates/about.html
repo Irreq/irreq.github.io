@@ -1,0 +1,498 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <link rel="stylesheet" href="css/flip-button.css"> -->
+<style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* ******************************************************
+  	Demo Purpose Only - May not require to add.
+  	font-family: 'Work Sans', sans-serif;
+  *********************************************************/
+
+  @import url(https://fonts.googleapis.com/css?family=Jaldi:400,700);
+  @import url(http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,700,700italic,900);
+  @import url('https://fonts.googleapis.com/css?family=Raleway:400,500,600,700,800,900');
+  @import url(https://fonts.googleapis.com/css?family=Lato:400,300,700,900);
+  @import url(https://fonts.googleapis.com/css?family=Work+Sans:200,300,500,700);
+
+
+  /* html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  article, header, section, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+      display: block;
+  }
+  body {
+      background:#c9d4ef none repeat scroll 0 0;
+      color: #000;
+      font-family: "Raleway",sans-serif;
+      font-size: 100%;
+      line-height: 24px;
+      margin: 0;
+  	padding:0;
+  }
+  a{
+  	font-family: "Raleway",sans-serif;
+  	text-decoration: none;
+  	outline: none;
+  }
+  a:hover, a:focus {
+  	color: #373e18;
+  }
+  section {
+      float: left;
+      width: 100%;
+  	 margin-top:2em;
+  	 margin-bottom:2em;
+  	 text-align:center;
+  }
+  h2 {
+      color: #1a0e0e;
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0;
+      line-height: normal;
+  	text-transform:uppercase;
+  }
+  h2 span {
+      display: block;
+      padding: 0;
+      font-size: 18px;
+      opacity: 0.7;
+      margin-top: 5px;
+  	text-transform:uppercase;
+  }
+
+  #float-right{
+  	float:right;
+  } */
+
+  /* ******************************************************
+  	Header
+  *********************************************************/
+
+
+  .slideout-anim-wrap {
+    height: 64px;
+    font: normal normal 700 1em/4em Arial,sans-serif;
+    overflow: hidden;
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 3em;
+  }
+  .slideout-anim-wrap,
+  .slide-anim-text {
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    transition: 0.3s;
+  }
+  .slideout-anim-wrap span {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+  }
+
+  .slide-anim-text{
+    margin-top: 0em;
+  }
+
+  .slideout-anim-wrap:hover
+  .slide-anim-text{
+    margin-top: -4em;
+  }
+
+
+  .ScriptTop {
+      background: #fff none repeat scroll 0 0;
+      float: left;
+      font-size: 0.69em;
+      font-weight: 600;
+      line-height: 2.2;
+      padding: 12px 0;
+      text-transform: uppercase;
+      width: 100%;
+  }
+
+  /* To Navigation Style 1*/
+  .ScriptTop ul {
+      margin: 24px 0;
+      padding: 0;
+      text-align: left;
+  }
+  .ScriptTop li{
+  	list-style:none;
+  	display:inline-block;
+  }
+  .ScriptTop li a {
+      background: #6a4aed none repeat scroll 0 0;
+      color: #fff;
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 5px 18px;
+      text-decoration: none;
+      text-transform: capitalize;
+  }
+  .ScriptTop li a:hover{
+  	background:#000;
+  	color:#fff;
+  }
+
+
+  /* Header*/
+  .ScriptHeader {
+      float: left;
+      width: 100%;
+      padding-top: 2em;
+  }
+  .rt-heading{
+  	border-bottom: solid 1px #4b62e3;
+  	padding-bottom: 10px;
+  }
+  .ScriptHeader h1{
+      color: #4b62e3;
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0;
+      line-height: normal;
+  	text-transform:uppercase;
+  }
+  .ScriptHeader h2 {
+      color: #4d58d1;
+      font-size: 18px;
+      font-weight: 400;
+      margin: 5px 0 0;
+      line-height: normal;
+  	text-transform:uppercase;
+  }
+
+  .ScriptHeader h1 span {
+      display: block;
+      padding: 0;
+      font-size: 22px;
+      opacity: 0.7;
+      margin-top: 5px;
+  	text-transform:uppercase;
+  }
+  .ScriptHeader span {
+      display: block;
+      padding: 0;
+      font-size: 22px;
+      opacity: 0.7;
+      margin-top: 5px;
+  }
+
+
+
+
+  /* ******************************************************
+  	Live Demo
+  *********************************************************/
+
+
+
+
+
+  /* ******************************************************
+  	Responsive Grids
+  *********************************************************/
+
+  .rt-container {
+  	margin: 0 auto;
+  	padding-left:12px;
+  	padding-right:12px;
+  }
+  .rt-row:before, .rt-row:after {
+    display: table;
+    line-height: 0;
+    content: "";
+  }
+
+  .rt-row:after {
+    clear: both;
+  }
+  [class^="col-rt-"] {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    padding: 0 15px;
+    min-height: 1px;
+    position: relative;
+  }
+
+
+  @media (min-width: 768px) {
+    .rt-container {
+      width: 750px;
+    }
+    [class^="col-rt-"] {
+      float: left;
+      width: 49.9999999999%;
+    }
+    .col-rt-6, .col-rt-12 {
+      width: 100%;
+    }
+
+  }
+
+  @media (min-width: 1200px) {
+  	.rt-container {
+  		width: 1170px;
+  	}
+  	.col-rt-1 {
+  		width:16.6%;
+  	}
+  	.col-rt-2 {
+  		width:33.33%;
+  	}
+  	.col-rt-3 {
+  		width:50%;
+  	}
+  	.col-rt-4 {
+  		width: 67.664%;
+  	}
+  	.col-rt-5 {
+  		width: 83.33%;
+  	}
+
+
+  }
+
+  @media only screen and (min-width:240px) and (max-width: 768px){
+  	 .ScriptTop h1, .ScriptTop ul {
+  		text-align: center;
+  	}
+  	.ScriptTop h1{
+  		margin-top:0;
+  		margin-bottom:15px;
+  	}
+  	.ScriptTop ul{
+  		 margin-top:12px;
+  	}
+
+  	.ScriptHeader h1,
+  	.ScriptHeader h2,
+  	.scriptnav ul{
+  		text-align:center;
+  	}
+  	.scriptnav ul{
+  		 margin-top:12px;
+  	}
+  	#float-right{
+  		float:none;
+  	}
+
+  }
+
+
+
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.column {
+  float: left;
+  /* width: 33.3%; */
+  width: 50%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 8px;
+}
+
+.about-section {
+  padding: 50px;
+  text-align: center;
+  background-color: #474e5d;
+  color: white;
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.title {
+  color: grey;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #555;
+}
+
+@media screen and (max-width: 400px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="about-section" style="border-radius: 20px;">
+
+  <h1 style="text-align:center text-size:100px">Who We* Are </h1>
+  <h2 style="text-align:center">*Me, Myself & (A)I</h2>
+
+
+</div>
+
+
+<div class="row" style="border-radius: 20px;">
+
+  <div id="isac" class="column" style="text-align: center;" >
+    <div class="card" style="border-radius: 20px;">
+      <img src="../static/images/Isac.jpg" alt="Isac" style="width:100%">
+      <div class="container">
+        <h2>Isac Bruce</h2>
+        <p class="title">Founder & Student</p>
+        <p>Student with a passion for Artificial Intelligence and adventures.</p>
+        <!-- <p>Irreq@protonmail.com</p> -->
+        <!-- <a href="mailto:Irreq@protonmail.com"><p><button style="border-radius: 20px;" class="button zoom">Contact</button></p></a> -->
+        <a href="mailto:Irreq@protonmail.com"><p><button style="border-radius: 20px; background-color: #23232e" class="button zoom slideout-anim-wrap">
+          <span class="slide-anim-text">
+            <svg width="30" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+               viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+
+            <path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121
+              C512,114.073,510.297,107.588,507.49,101.721zM467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51
+                C480.412,77.703,473.927,76,467,76zM4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721zM331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49
+                  C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></svg>
+          </span>
+          <span>
+            Irreq@protonmail.com
+          </span>
+        </button>
+      </p>
+    </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="lynn" class="column" style="text-align: center;">
+    <div class="card" style="border-radius: 20px;">
+      <img src="../static/images/Lynn.jpeg" alt="Lynn" style="width:100%">
+      <div class="container">
+        <h2>Lynn <button type="button" style="pointer-events: none; border-radius: 20px;" name="button">BOT</button></h2>
+
+        <p class="title">Moderator & Artificial Intelligence</p>
+        <p>Neural Network with a vast functionality, read more about me at Isac's <a href="/projects/#Lynn">projects.</a></p>
+
+        <!-- <p>LynnAI@protonmail.com</p> -->
+        <!-- #ececec;
+        --bg-primary: #23232e; -->
+        <a href="mailto:LynnAI@protonmail.com"><p><button style="border-radius: 20px; background-color: #23232e" class="button zoom slideout-anim-wrap">
+          <span class="slide-anim-text">
+            <svg width="30" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+               viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+
+            <path d="M507.49,101.721L352.211,256L507.49,410.279c2.807-5.867,4.51-12.353,4.51-19.279V121
+              C512,114.073,510.297,107.588,507.49,101.721zM467,76H45c-6.927,0-13.412,1.703-19.279,4.51l198.463,197.463c17.548,17.548,46.084,17.548,63.632,0L486.279,80.51
+                C480.412,77.703,473.927,76,467,76zM4.51,101.721C1.703,107.588,0,114.073,0,121v270c0,6.927,1.703,13.413,4.51,19.279L159.789,256L4.51,101.721zM331,277.211l-21.973,21.973c-29.239,29.239-76.816,29.239-106.055,0L181,277.211L25.721,431.49
+                  C31.588,434.297,38.073,436,45,436h422c6.927,0,13.412-1.703,19.279-4.51L331,277.211z"></svg>
+          </span>
+          <span>
+            LynnAI@protonmail.com
+          </span>
+        </button>
+      </p>
+    </a>
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="about-section" style="border-radius: 20px;">
+
+  <h1 style="text-align:center">This is the story of my life</h1>
+
+
+
+
+</div>
+
+<img style="width: 100%; border-radius: 50px"src="/static/images/Trysil-2019.jpg" alt="">
+
+
+
+</body>
+</html>
+
+<style>
+  img {
+    border-radius: 10%;
+  }
+  .aligned {
+      display: flex;
+      align-items: center;
+  }
+
+  /* span {
+      padding: 10px;
+  } */
+</style>
+
+{% endblock content %}
