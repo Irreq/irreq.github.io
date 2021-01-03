@@ -51,18 +51,16 @@ document.addEventListener('DOMContentLoaded', function() {
   // Getting the list of keywords for help & posting it to the screen
   var postHelpList = function(){
     // Array of all the help keywords
-    // var helpKeyWords = [
-    //   "- Open + website URL to open it in the browser (ex. open webdevtrick.com)",
-    //   "- Google + keyword to search directly in Google (ex. google web development)",
-    //   "- YouTube + keyword to search directly in YouTube (ex. Technical Freaks)",
-    //   "- Wiki + keyword to search directly in Wikipedia (ex. wiki numbers)",
-    //   "- 'Time' will display the current time.",
-    //   "- 'Date' will display the current date.",
-    //   "- 'tech' will make you expert by watching videos",
-    //   "* There are more keywords that you have to discover by yourself."
-    // ].join('<br>');
-
-    var helpKeyWords = readText("help.txt").join('<br>');
+    var helpKeyWords = [
+      "- Open + website URL to open it in the browser (ex. open webdevtrick.com)",
+      "- Google + keyword to search directly in Google (ex. google web development)",
+      "- YouTube + keyword to search directly in YouTube (ex. Technical Freaks)",
+      "- Wiki + keyword to search directly in Wikipedia (ex. wiki numbers)",
+      "- 'Time' will display the current time.",
+      "- 'Date' will display the current date.",
+      "- 'tech' will make you expert by watching videos",
+      "* There are more keywords that you have to discover by yourself."
+    ].join('<br>');
     addTextToResults(helpKeyWords);
   }
 
