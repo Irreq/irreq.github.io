@@ -10,6 +10,17 @@ function readText(text){
     console.log(text);
 }
 
+var dict = {
+
+   "name": "Isac",
+   "fullname": "Isac Per Ragnar Bruce",
+   "phone": "(+46) 079 348 9745",
+   "contact": "I'd Like To Hear From You.<br>Hit me up whenever you wan't, <br>I will try to answer any question, big or small.",
+   "mail": "irreq@protonmail.com",
+   "location": "<a href='https://goo.gl/maps/D2MUaJTjyXvk5rzw9'><u><br><br>Thorildsplans gymnasium <br>Drottningholmsvägen 82 <br>112 43 Stockholm</u></a>",
+
+};
+
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -103,9 +114,55 @@ document.addEventListener('DOMContentLoaded', function() {
   var textReplies = function() {
     switch(textInputValueLowerCase){
       // replies
+
+      case "about":
+      case "info":
+        clearInput();
+        addTextToResults("Hello!<br><br>I am an AI enthusiast with a peculiar inclination for learning and problem-solving. <br>Whenever I am not working on my computer, you will find me running or riding Mountainbike in the local forests.");
+        break;
+
+      case "details":
+        clearInput();
+        addTextToResults("Here are my details:<br><br>Full name: Isac Per Ragnar Bruce<br>Occupation: Student, Developer & Hobby Scientist<br>");
+        break;
+
+      case "name":
+        clearInput();
+        addTextToResults("hello my name is "+dict["name"] + " <p><i>hint: try 'fullname'</i></p>");
+        break;
+
+      case "fullname":
+        clearInput();
+        addTextToResults("My full name is " + dict["fullname"]);
+        break;
+
+      case "number":
+      case "phone":
+        clearInput();
+        addTextToResults("You can reach me on mobile too: "+dict["phone"]);
+        break;
+
+      case "email":
+      case "mail":
+        clearInput();
+        addTextToResults("You can easely reach me on my email: " + dict["mail"]);
+        break;
+
+      case "contact":
+        clearInput();
+        addTextToResults(dict["contact"] + "<br><br>Phone: "+dict["phone"]+"<br><br>Email: "+dict["mail"]);
+        break;
+
+      case "location":
+      case "address":
+        clearInput();
+        addTextToResults("You can find me at: "+dict["location"]);
+        break;
+
+
       case "code":
         clearInput();
-        addTextToResults("Get web elements source code at <a target='_blank' href='https://webdevtrick.com'>WebDevTrick</a>");
+        addTextToResults("Source code is available <a href='https://github.com/irreq/irreq.github.io'><u>here</u></a>");
         break;
 
       case "founder":
@@ -118,13 +175,6 @@ document.addEventListener('DOMContentLoaded', function() {
         addTextToResults("Shaan is founder of this blog and he is a Developer, SEO, and Graphic Designer");
         break;
 
-      case "i love you":
-      case "love you":
-      case "love":
-        clearInput();
-        addTextToResults("Aww! Love you too ❤");
-        break;
-
       case "web development":
       case "web dev":
       case "webdevelopment":
@@ -135,29 +185,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
       case "hello":
       case "hi":
-      case "hola":
         clearInput();
-        addTextToResults("Hello, I am your assistant... I am based on pure JavaScript.");
+        addTextToResults("Hello, I am your assistant... I am based on pure vanilla JavaScript.");
         break;
 
-      case "what the":
-      case "wtf":
-        clearInput();
-        addTextToResults("F***.");
-        break;
 
-      case "shit":
-      case "poop":
-      case "💩":
-        clearInput();
-        addTextToResults("💩");
-        break;
-
-      case "tech":
-      case "technology":
-        addTextToResults("Okay I'll show you some in YouTube.");
-        openLinkInNewWindow('https://www.youtube.com/c/TechnicalFreaks');
-        break;
 
 
       // replies

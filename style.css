@@ -14,45 +14,13 @@ body, h1,h2,h3, p{
 	padding:0;
 }
 
-.gradientCont{
-  background: linear-gradient(to right, #ff416c, #ff4b2b);
-	width:100%;
-	height: 300px;
-}
-
-.mainCont{
-	width:1000px;
-	margin: 0 auto;
-}
-
-.mainCont h2{
-	display: inline-block;
-	width: 100%;
-	text-align: center;
-	font-weight: 300;
-	font-size: 48px;
-	margin: 60px 0 0 0;
-	color: white;
-  opacity: 0;
-
-  animation: fadeInAnimation 1s ease-in-out 0s forwards;
-}
-
-.mainCont h3{
-	text-align: center;
-	font-weight: 400;
-	font-size: 18px;
-	color: rgba(255,255,255,0.75);
-  margin: 0 0 60px 0;
-  opacity: 0;
-
-  animation: fadeInAnimation 1s ease-in-out 0.5s forwards;
+u {
+  text-decoration: underline;
 }
 
 .terminalCont{
 	background: black;
 	width: 100%;
-	border-radius: 4px;
   padding:12px 0 0 0;
   margin-top: -20px;
   font-family: 'Roboto Mono', monospace;
@@ -72,7 +40,8 @@ body, h1,h2,h3, p{
 
 #terminalReslutsCont{
 	width:100%;
-	height: 400px;
+	/* height: 1000px; /* Change this to be dynamic */
+  height: 1000px;
 	padding: 12px;
 	overflow-y: auto;
 	resize: none;
@@ -142,23 +111,9 @@ body, h1,h2,h3, p{
 }
 
 @media screen and (max-width: 1000px){
-  .gradientCont{
-    height: 220px;
-  }
-  .mainCont{
-    width: 100%;
-    padding: 0 12px;
-  }
-  .mainCont h2{
-    font-size: 32px;
-    margin: 40px 0 0 0;
-  }
-  .mainCont h3{
-    font-size: 16px;
-    margin: 0 0 40px 0;
-  }
+
   #terminalReslutsCont{
-    height: 100px;
+    height: 100%;
   }
 
 }
