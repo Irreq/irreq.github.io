@@ -1,18 +1,13 @@
-function readTextFile(file) {
-    var rawFile = new XMLHttpRequest(); // XMLHttpRequest (often abbreviated as XHR) is a browser object accessible in JavaScript that provides data in XML, JSON, but also HTML format, or even a simple text using HTTP requests.
-    rawFile.open("GET", file, false); // open with method GET the file with the link file ,  false (synchronous)
-    rawFile.onreadystatechange = function ()
-    {
-        if(rawFile.readyState === 4) // readyState = 4: request finished and response is ready
-        {
-            if(rawFile.status === 200) // status 200: "OK"
-            {
-                var allText = rawFile.responseText; //  Returns the response data as a string
-                console.log(allText); // display text on the console
-            }
-        }
-    }
-    rawFile.send(null); //Sends the request to the server Used for GET requests with param null
+async function loadText(url) {
+    text = await fetch(url);
+    //awaits for text.text() prop
+    //and then sends it to readText()
+    readText(await text.text());
+}
+
+function readText(text){
+    //here you can continue with your JS normal logic
+    console.log(text);
 }
 
 
@@ -56,18 +51,18 @@ document.addEventListener('DOMContentLoaded', function() {
   // Getting the list of keywords for help & posting it to the screen
   var postHelpList = function(){
     // Array of all the help keywords
-    var helpKeyWords = [
-      "- Open + website URL to open it in the browser (ex. open webdevtrick.com)",
-      "- Google + keyword to search directly in Google (ex. google web development)",
-      "- YouTube + keyword to search directly in YouTube (ex. Technical Freaks)",
-      "- Wiki + keyword to search directly in Wikipedia (ex. wiki numbers)",
-      "- 'Time' will display the current time.",
-      "- 'Date' will display the current date.",
-      "- 'tech' will make you expert by watching videos",
-      "* There are more keywords that you have to discover by yourself."
-    ].join('<br>');
+    // var helpKeyWords = [
+    //   "- Open + website URL to open it in the browser (ex. open webdevtrick.com)",
+    //   "- Google + keyword to search directly in Google (ex. google web development)",
+    //   "- YouTube + keyword to search directly in YouTube (ex. Technical Freaks)",
+    //   "- Wiki + keyword to search directly in Wikipedia (ex. wiki numbers)",
+    //   "- 'Time' will display the current time.",
+    //   "- 'Date' will display the current date.",
+    //   "- 'tech' will make you expert by watching videos",
+    //   "* There are more keywords that you have to discover by yourself."
+    // ].join('<br>');
 
-    var helpKeyWords = readTextFile("help.txt").join('<br>');
+    var helpKeyWords = readText("help.txt").join('<br>');
     addTextToResults(helpKeyWords);
   }
 
