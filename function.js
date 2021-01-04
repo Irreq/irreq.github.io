@@ -2,6 +2,11 @@ var globalhistory = "";
 
 var globalpath = "~/"
 
+var terminalTextLengthLimit = 80;
+
+// Time delay of print out
+var timeDelay = 30;
+
 var dict = {
 
    "name": "Isac",
@@ -12,10 +17,24 @@ var dict = {
    "location": "<a href='https://goo.gl/maps/D2MUaJTjyXvk5rzw9'><u><br><br>Thorildsplans gymnasium <br>Drottningholmsvägen 82 <br>112 43 Stockholm</u></a>",
    "occupation": "Student, Developer & Hobby Scientist",
    "programming_languages": "Python, Julia, R & JS",
+   "construction": "<pre>                             _<br>"+
+                   "                     /======/                           <br>"+
+                   "            ____    //      \___,       ,/101010               <br>"+
+                   "             | \\   //          ,:,   ./101010101                  <br>"+
+                   "     |¨¨¨¨¨¨¨|__|_//            ,;:; /10010101101                   <br>"+
+                   "    _L_____________\o           ,;;;/1010101011101                    <br>"+
+                   ".,,.(O_o_o_o_o_o_o_O),,.,.,.,...,.-/101010101010101,,.,., Isac Bruce .,.,,,.,.,</pre>",
+    "bird": "<pre>"+
+            "               __<br>"+
+            "             <(o )___<br>"+
+            "              ( ._> /<br>"+
+            "               `---'   "+
+            "</pre>",
+
 
 };
 
-document.getElementById('terminalReslutsCont').innerHTML = "Welcome to the interactive terminal!<br>I will try to guide you upon your visit on this page<br><br>Good Luck!<br>"
+document.getElementById('terminalReslutsCont').innerHTML = "<pre>   Welcome to the interactive terminal!<br>   I will try to guide you on your visit <br>   to this terminal on this website<br>"+dict["bird"]+"<pre>            Good  Luck!</pre><br>"
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -52,6 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Array of all the help keywords
     var helpKeyWords = [
+      "<br>",
+      "- 'Projects' will display projects.",
+      "- 'Services' will display services.",
+      "- 'About' will display information about " + dict["name"]+ ".",
+      "- 'languages' will display information about languages.",
       "- Open + website URL to open it in the browser (ex. open webdevtrick.com)",
       "- Google + keyword to search directly in Google (ex. google web development)",
       "- YouTube + keyword to search directly in YouTube (ex. Technical Freaks)",
@@ -59,10 +83,11 @@ document.addEventListener('DOMContentLoaded', function() {
       "- 'Time' will display the current time.",
       "- 'Date' will display the current date.",
       "- 'tech' will make you expert by watching videos",
-      "PS. There are more keywords for you to discover. ;)"
     ].join('<br>');
 
-    addTextToResults(helpKeyWords);
+    document.getElementById('terminalReslutsCont').innerHTML += helpKeyWords+dict["bird"];
+    message("Here are some stuff for you to try out! <br>PS. there is more for you to discover.")
+
   }
 
   // Getting the time and date and post it depending on what you request for
@@ -92,17 +117,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (postTimeDay == "date"){
       addTextToResults(currentDate);
     }
-  }
-
-  var message = function(msg, hint) {
-
-    if (hint != undefined) {
-        addTextToResults("<br>"+msg + "<br><p><i>hint: try " + hint + "</i></p>");
-    }
-    else {
-      addTextToResults("<br>"+msg);
-    }
-
   }
 
   // cd
@@ -149,14 +163,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Core functions
 
+  // Split text
+  var splitter = function(textData) {
+
+    var wholeWordArray = textData.split(" ")
+
+    var result = []
+
+    var indexes = [0,];
+
+    var localLength = 0;
+    var localIndex = 0;
+
+    var i;
+    for (i in wholeWordArray) {
+        if (localLength >= terminalTextLengthLimit) {
+
+            // append the length to indexes
+            indexes.push(indexes[indexes.length - 1]+localIndex);
+
+            // reset values for next loop
+            localLength = 0;
+            localIndex = 0;
+        }
+
+        else {
+
+          // Just the iteration process
+          localLength += wholeWordArray[i].length + 1;
+          localIndex += 1;
+        }
+
+    }
+
+    indexes.push(wholeWordArray.length)
+
+    // Will put the text together neatly into an array
+    var k;
+    for (var k = 0; k < indexes.length; k += 1) {
+        result.push(wholeWordArray.slice(indexes[k],indexes[k+1]).join(" "))
+    }
+
+    return "<br>" + result.join("<br>");
+  }
+
   // Print the data
+  var message = function(msg, hint) {
+
+    if (hint != undefined) {
+      if (msg.includes("<br>") == false) {
+        addTextToResults(splitter(msg) + "<br><p><i>hint: try " + hint + "</i></p>")
+      } else {
+        addTextToResults(msg + "<br><p><i>hint: try " + hint + "</i></p>");
+      }
+
+    } else {
+      if (msg.includes("<br>") == false) {
+        addTextToResults(splitter(msg));
+      } else {
+        addTextToResults(msg);
+      }
+    }
+  }
+
   var addTextToResults = function(textToAdd){
 
     // Initialise text position
     var localTextPos = 0;
-
-    // Time delay of print out
-    var timeDelay = 30;
 
     // Text buffer
     var textData = "";
@@ -214,22 +287,19 @@ document.addEventListener('DOMContentLoaded', function() {
     switch(textInputValueLowerCase){
 
       case "test":
-        message("difgkjdfgksdjhhhhhhhhhhhhhhhhhhh<br>dskjhfgjshdgfhksdgfkhsdgggggggfffffffffffffffffffffffffffff<br>edjfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff")
+        message("This might be surprising but length property of an array is not only used to get number of array elements but it's also writable and can be used to set array's length MDN link. This will mutate the array. If current array is not needed anymore and you don't care about immutability or don't want to allocate memory i.e. for a game the fastest way is.")
         break;
 
       case "bird":
-        message("<pre>"+
-                "               __<br>"+
-                "             <(o )___<br>"+
-                "              ( ._> /<br>"+
-                "               `---'   "+
-                "</pre>")
+        message(dict["bird"]);
+
+        clearInput();
         break;
 
       // replies
       case "about":
       case "info":
-        message("Hello!<br><br>I am an AI enthusiast with a peculiar inclination for learning and problem-solving. <br>Whenever I am not working on my computer, you will find me running or riding Mountainbike in the local forests.");
+        message("Hello!<br><br>I am an AI enthusiast with a peculiar inclination for learning and problem-solving. Whenever I am not working on my computer, you will find me running or riding Mountainbike in the local forests.");
         break;
 
       case "details":
@@ -247,6 +317,7 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
 
       case "pwd":
+      case "ls":
         message(globalpath)
         break;
 
@@ -261,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
       case "language":
       case "programming languages":
         message("I speak several languages, and I program in even more",
-        "typing 'python' or 'julia' or 'r' <br>or even spoken languages like 'swedish' or 'german'");
+        "typing 'python' or 'julia' or 'r' or even spoken languages like 'swedish' or 'german'");
         break;
 
       case "python":
@@ -279,7 +350,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       case "js":
       case "javascript":
-        message("I have experienced knowledge in JavaScript. <br>Fun fact: this program you are interacting with is written in pure JS",
+        message("I have experienced knowledge in JavaScript. Fun fact: this program you are interacting with is written in pure JS",
                 "typing 'python'");
         break;
 
@@ -301,15 +372,15 @@ document.addEventListener('DOMContentLoaded', function() {
       case "job":
       case "offer":
         message("I tailor my services to fit the projects in the best ways possible."+
-          "<br>I am based in Stockholm, but I am open for relocating if necessary."+
-          "<br>I will make sure the project is due in time."+
-          "<br>If no major work is required, check out my "+dict['programming_languages']+" gigs instead:<br>Contact me at "+dict["mail"],
+          " I am based in Stockholm, but I am open for relocating if necessary."+
+          " I will make sure the project is due in time."+
+          " If no major work is required, check out my "+dict['programming_languages']+" gigs instead:<br>Contact me at "+dict["mail"],
         "typing 'consulting' or 'tutoring' or 'cluster' or even 'contracting' for further information")
         break;
 
       case "consult":
       case "consulting":
-        message("I can provide general help with finding the right solutions <br>to meet your project's deadline in due time.<br>Contact me at "+dict["mail"]);
+        message("I can provide general help with finding the right solutions to meet your project's deadline in due time.<br>Contact me at "+dict["mail"]);
         break;
 
       case "contracting":
@@ -323,7 +394,7 @@ document.addEventListener('DOMContentLoaded', function() {
       case "coaching":
       case "tutor":
       case "tutoring":
-        message("Learn how to solve problems using code. <br>You choose what to cover during Skype or Discord sessions <br>ranging from fundamental syntax to Machine Learning.<br>Contact me at "+dict["mail"]);
+        message("Learn how to solve problems using code. You choose what to cover during Skype or Discord sessions ranging from fundamental syntax to Machine Learning.<br>Contact me at "+dict["mail"]);
         break;
 
       case "parallel":
@@ -331,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
       case "beowulf":
       case "cluster":
       case "clustering":
-        message("Try parallel computing for educational purposes <br>on a PoC Linux Beowulf Cluster on limited hardware.<br>Contact me at "+dict["mail"]);
+        message("Try parallel computing for educational purposes on a PoC Linux Beowulf Cluster on limited hardware.<br>Contact me at "+dict["mail"]);
         break;
 
 
@@ -422,7 +493,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
       case "hello":
       case "hi":
-        message("Hello, I am your assistant... I am based on pure JavaScript.");
+        message("Hello, I am your assistant. I am powered by pure JavaScript and the joy of coding.");
+        break;
+
+      case "lol":
+        message("Hahaha");
+        break;
+
+      case "bye":
+      case "goodbye":
+      case "exit":
+      case "stop":
+        message("Goodbye for now, I hope you've gained some insight into "+dict["name"]+"'s way of life.");
         break;
 
       case "nice":
@@ -437,6 +519,11 @@ document.addEventListener('DOMContentLoaded', function() {
       case "repeat":
       case "echo":
         message("Type 'echo' + something you wan't to echo/repeat, eg. 'Hello, World!'")
+        break;
+
+      case "speed":
+        document.getElementById('terminalReslutsCont').innerHTML += dict["construction"];
+        message("This function is still under construction, thank you for your interest. In the meantime have a look at 'echo'");
         break;
 
       case "cd":
@@ -472,7 +559,7 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
 
       default:
-      message("<i>The command <b>" + textInputValue + "</b> was not found.</i>"," Type <b>Help</b> to see all commands.");
+      message("<i>The command <b>" + textInputValue + "</b> was not found.</i>"," type <b>Help</b> to see all commands.");
       break;
     }
   }
