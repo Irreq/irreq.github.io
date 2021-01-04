@@ -9,7 +9,7 @@ var timeDelay = 30;   // Time delay of print out
 var initiated = false;
 
 var dict = {
-   "rooturl": "https://raw.githubusercontent.com/Irreq/irreq.github.io/main/",
+   "rooturl": "https://raw.githubusercontent.com/Irreq/irreq.github.io/main/root/home/",
    "name": "Isac",
    "fullname": "Isac Per Ragnar Bruce",
    "phone": "(+46) 079 348 9745",
