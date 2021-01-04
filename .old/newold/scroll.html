@@ -1,0 +1,150 @@
+<html>
+<head>
+
+	<meta charset="UTF-8">
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+	<style>
+
+		body {
+		  width: 100%;
+		  height: 100%;
+		  background: #000;
+		  overflow: hidden;
+		}
+
+		.fade {
+		  position: relative;
+		  width: 100%;
+		  min-height: 60vh;
+		  top: -25px;
+		  background-image: linear-gradient(0deg, transparent, black 75%);
+		  z-index: 1;
+		}
+
+		.star-wars {
+		  display: flex;
+		  justify-content: center;
+		  position: relative;
+		  height: 800px;
+		  color: #feda4a;
+		  font-family: 'Pathway Gothic One', sans-serif;
+		  font-size: 500%;
+		  font-weight: 600;
+		  letter-spacing: 6px;
+		  line-height: 150%;
+		  perspective: 400px;
+		  text-align: justify;
+		}
+
+		.crawl {
+		  position: relative;
+		  top: 9999px;
+		  transform-origin: 50% 100%;
+		  /*animation: crawl 60s linear;*/
+		}
+
+		.crawl > .title {
+		  font-size: 90%;
+		  text-align: center;
+		}
+
+		.crawl > .title h1 {
+		  margin: 0 0 100px;
+		  text-transform: uppercase;
+		}
+
+		@keyframes crawl {
+		  0% {
+			top: 0;
+			transform: rotateX(30deg)  translateZ(0);
+		  }
+		  100% {
+			top: -6000px;
+			transform: rotateX(30deg) translateZ(-5500px);
+		  }
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="fade"></div>
+
+	<section class="star-wars">
+
+		<div class="crawl">
+
+			<div class="title">
+			  <p>Episode IV</p>
+			  <h1>A New Hope</h1>
+			</div>
+
+			<p>It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire.</p>
+			<p>During the battle, Rebel spies managed to steal secret plans to the Empire’s ultimate weapon, the DEATH STAR, an armored space station with enough power to destroy an entire planet.</p>
+			<p>Pursued by the Empire’s sinister agents, Princess Leia races home aboard her starship, custodian of the stolen plans that can save her people and restore freedom to the galaxy…</p>
+
+		</div>
+
+	</section>
+
+	<script>
+		var sdegree = 0;
+
+		var doc = document;
+		if (doc.addEventListener) {
+			// IE9, Chrome, Safari, Opera
+			doc.addEventListener("mousewheel", MouseWheelHandler, false);
+			// Firefox
+			doc.addEventListener("DOMMouseScroll", MouseWheelHandler, false);
+		}
+		// IE 6/7/8
+		else doc.attachEvent("onmousewheel", MouseWheelHandler);
+
+		function MouseWheelHandler(e) {
+			// cross-browser wheel delta
+			var e = window.event || e; // old IE support
+			var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+
+			sdegree += 0.5 * delta;
+
+			var o = animateText(sdegree);
+
+			$('.crawl').css({
+				'top': o.top + 'px',
+				'transform': 'rotateX(' + o.rotateX + 'deg) translateZ(' + o.translateZ + 'px)'
+			});
+
+			return false;
+		}
+
+		function animateText(step){
+
+			var limit = {'min': 0, 'max': 100};
+
+			var top_l = {'min': 0, 'max': -6000};
+			var rotateX_l = {'min': 20, 'max': 25};
+			var translateZ_l = {'min': 0, 'max': -2500};
+
+			//
+
+			var m_top = (top_l.max - top_l.min) / (limit.max - limit.min);
+			var m_rotateX = (rotateX_l.max - rotateX_l.min) / (limit.max - limit.min);
+			var m_translateZ = (translateZ_l.max - translateZ_l.min) / (limit.max - limit.min);
+
+			var top = m_top * step + top_l.min;
+			var rotateX = m_rotateX * step + rotateX_l.min;
+			var translateZ = m_translateZ * step + translateZ_l.min;
+
+			var output = {
+				'top': top,
+				'rotateX': rotateX,
+				'translateZ': translateZ
+			};
+
+			return output;
+
+		}
+
+	</script>
+</body>
+</html>

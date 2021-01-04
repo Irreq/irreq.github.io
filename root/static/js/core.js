@@ -1,14 +1,15 @@
-var globalhistory = "";
+var globalhistory = "";   // Everything entered in the terminal
 
-var globalpath = "~/"
+var globalpath = "~/"   // The initial path
 
-var terminalTextLengthLimit = 80;
+var terminalTextLengthLimit = 80;   // The maximum horizontal length
 
-// Time delay of print out
-var timeDelay = 30;
+var timeDelay = 30;   // Time delay of print out
+
+var initiated = false;
 
 var dict = {
-
+   "rooturl": "https://raw.githubusercontent.com/Irreq/irreq.github.io/main/",
    "name": "Isac",
    "fullname": "Isac Per Ragnar Bruce",
    "phone": "(+46) 079 348 9745",
@@ -30,11 +31,10 @@ var dict = {
             "              ( ._> /<br>"+
             "               `---'   "+
             "</pre>",
-
-
 };
 
-document.getElementById('terminalReslutsCont').innerHTML = "<pre>   Welcome to the interactive terminal!<br>   I will try to guide you on your visit <br>   to this terminal on this website<br>"+dict["bird"]+"<pre>            Good  Luck!</pre><br>"
+document.getElementById('terminalReslutsCont').innerHTML = "<pre>   Welcome to the interactive terminal!<br>   "+
+                                                           "I will try to guide you on your visit <br>   to this terminal based website<br>"+dict["bird"]+"<pre>            Good  Luck!</pre><br>"
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -52,8 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   //Getting the text from the results div
   var textResultsValue = document.getElementById('terminalReslutsCont').innerHTML;
-
-
 
   // Clear text input
   var clearInput = function(){
@@ -121,35 +119,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // cd
   var changeDir = function(data) {
-    if (data.substr(0,2) == "/ ") {globalpath = "~/root"}
-    else if (data.substr(0,2) == ". ") {globalpath = "~/"}
-    else if (data.substr(0,3) == ".. "){
-      // go up one place
+    if (data.substr(0,2) == "/ ") {
+      globalpath = "~/root";
+    } else if (data.substr(0,2) == ". ") {
+      globalpath = "~/";
+    } else if (data.substr(0,3) == ".. "){ // go up one place
 
       if (globalpath.length > "~/".length) {
         globalpath = globalpath.substr(0,globalpath.lastIndexOf("/"));
-
       }
 
       if (globalpath.length < "~/".length) {
         globalpath = "~/";
       }
 
-    }
-    else if (data.substr(0,1) == "/" ) {
-
+    } else if (data.substr(0,1) == "/" ) {
       globalpath = "~/" + data.substr(1,data.length-1);
-
-    }
-
-    else {
+    } else {
       if (globalpath.substr(0,globalpath.length) != "~/") {
         globalpath += "/"
-
       }
       globalpath += data.substr(0,data.length-1)
     }
-
     addTextToResults("<p><i>hint: try 'ls' to list files</i></p>");
   }
 
@@ -163,94 +154,89 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Core functions
 
+  // Retrieve data from remote file
+  var getTextData = function(query) {
+    fetch(dict["rooturl"]+query+".txt")
+      .then(function(response) {
+        response.text().then(function(text) {
+          if (text.includes("404: Not Found")) {
+            message("Sorry, I was unable to find '"+query+"'");
+          } else {
+            message("<pre>"+text+"</pre>");
+          }
+        });
+      });
+  }
+
   // Split text
   var splitter = function(textData) {
 
     var wholeWordArray = textData.split(" ")
-
     var result = []
-
     var indexes = [0,];
-
     var localLength = 0;
     var localIndex = 0;
 
     var i;
     for (i in wholeWordArray) {
         if (localLength >= terminalTextLengthLimit) {
-
-            // append the length to indexes
-            indexes.push(indexes[indexes.length - 1]+localIndex);
-
-            // reset values for next loop
-            localLength = 0;
+            indexes.push(indexes[indexes.length - 1]+localIndex);   // append the length to indexes
+            localLength = 0;    // reset values for next loop
             localIndex = 0;
-        }
-
-        else {
-
-          // Just the iteration process
+        } else {    // Just the iteration process
           localLength += wholeWordArray[i].length + 1;
           localIndex += 1;
         }
-
     }
 
     indexes.push(wholeWordArray.length)
 
-    // Will put the text together neatly into an array
     var k;
-    for (var k = 0; k < indexes.length; k += 1) {
+    for (var k = 0; k < indexes.length; k += 1) {   // Will put the text together neatly into an array
         result.push(wholeWordArray.slice(indexes[k],indexes[k+1]).join(" "))
     }
-
     return "<br>" + result.join("<br>");
   }
 
-  // Print the data
+  // Preprocess the data to print
   var message = function(msg, hint) {
 
     if (hint != undefined) {
-      if (msg.includes("<br>") == false) {
+      if (msg.includes("<br>") == false) {    // If a hint is present
         addTextToResults(splitter(msg) + "<br><p><i>hint: try " + hint + "</i></p>")
       } else {
         addTextToResults(msg + "<br><p><i>hint: try " + hint + "</i></p>");
       }
-
     } else {
       if (msg.includes("<br>") == false) {
-        addTextToResults(splitter(msg));
+        if (msg.includes("<pre>") == false) {
+          addTextToResults(splitter(msg));
+        } else {
+          addTextToResults(msg);
+        }
       } else {
         addTextToResults(msg);
       }
     }
   }
 
+  // Print the data
   var addTextToResults = function(textToAdd){
 
-    // Initialise text position
-    var localTextPos = 0;
+    var localTextPos = 0;   // Initialise text position
+    var textData = "";    // Text buffer
 
-    // Text buffer
-    var textData = "";
-
-    // Pure string needs to have padding if no padding is present
-    if (textToAdd.substring(0,2) != "<p") {
+    if (textToAdd.substring(0,2) != "<p") { // Pure string needs to have padding if no padding is present
       textData = "<p>" + textToAdd + "</p>";
-    }
-
-    else {
+    } else {
       textData = textToAdd;
     }
 
-    // The typewriter function
-    this.typewriter = function() {
+    this.typewriter = function() {    // The typewriter function
 
-      // Writes to 'terminalReslutsCont'
-      var destination = document.getElementById('terminalReslutsCont');
+      var destination = document.getElementById('terminalReslutsCont');   // Writes to 'terminalReslutsCont'
 
-      // Previous data is stored on first iteration
-      if (localTextPos == 0) {
+      if (localTextPos == 0) {    // Previous data is stored on first iteration
         globalhistory = destination.innerHTML;
       }
 
@@ -267,19 +253,12 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
 
-      // Next iteration
-      // localTextPos++
-
       // I'm guessing the function overflows and dies but that is no issue
       setTimeout("typewriter()", Math.random() * timeDelay);
-
     }
 
-    // Clears typed inpput
-    clearInput();
-
-    // Initialise typewriter function
-    typewriter(textToAdd);
+    clearInput();   // Clears typed inpput
+    typewriter(textToAdd);    // Initialise typewriter function
   }
 
   // Having a specific text reply to specific strings
@@ -288,6 +267,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
       case "test":
         message("This might be surprising but length property of an array is not only used to get number of array elements but it's also writable and can be used to set array's length MDN link. This will mutate the array. If current array is not needed anymore and you don't care about immutability or don't want to allocate memory i.e. for a game the fastest way is.")
+        break;
+
+      case "test2":
+        getTextData("help")
         break;
 
       case "bird":
@@ -493,7 +476,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       case "hello":
       case "hi":
-        message("Hello, I am your assistant. I am powered by pure JavaScript and the joy of coding.");
+        message("Hello, I am your assistant. I am powered by pure JavaScript and fueled by the joy of coding.");
         break;
 
       case "lol":
@@ -564,26 +547,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-// Main function to check the entered text and assign it to the correct function
+  // Main function to check the entered text and assign it to the correct function
   var checkWord = function() {
 
-    // Get the text from the text input to a variable
-    textInputValue = document.getElementById('terminalTextInput').value.trim();
-
-    // lower case of the string
-    textInputValueLowerCase = textInputValue.toLowerCase();
+    textInputValue = document.getElementById('terminalTextInput').value.trim();   // Get the text from the text input to a variable
+    textInputValueLowerCase = textInputValue.toLowerCase();   // lower case of the string
 
     if (textInputValue != "") {
-
       // Check if text was entered
       document.getElementById('terminalReslutsCont').innerHTML += "<br><p class='userEnteredText'>"+globalpath+"> " + textInputValue + "</p>";
 
-      // If the first 5 characters = open + space
-      if (textInputValueLowerCase.substr(0,5) == "open ") {
+      if (textInputValueLowerCase.substr(0,5) == "open ") {   // If the first 5 characters = open + space
         openLinkInNewWindow('http://' + textInputValueLowerCase.substr(5));
         message("<i>The URL " + "<b>" + textInputValue.substr(5) + "</b>" + " should be opened now.</i>");
       } else if (textInputValueLowerCase.substr(0,3) == "cd ") {
         changeDir(textInputValueLowerCase.substr(3) + " ");
+      } else if (textInputValueLowerCase.substr(0,5) == "find ") {
+        getTextData(textInputValue.substr(5))
       } else if (textInputValueLowerCase.substr(0,5) == "echo ") {
         message(textInputValue.substr(5))
       } else if (textInputValueLowerCase.substr(0,8) == "youtube ") {
@@ -600,5 +580,4 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
   };
-
 });
