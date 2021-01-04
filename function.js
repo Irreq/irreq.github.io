@@ -1,113 +1,6 @@
-var TxtRotate = function(el, toRotate, period) {
-  this.toRotate = toRotate;
-  this.el = el;
-  this.loopNum = 0;
-  this.period = parseInt(period, 10) || 2000;
-  this.txt = '';
-  this.tick();
-  this.isDeleting = false;
-};
-
-TxtRotate.prototype.tick = function() {
-  var i = this.loopNum % this.toRotate.length;
-  var fullTxt = this.toRotate[i];
-
-  if (this.isDeleting) {
-    this.txt = fullTxt.substring(0, this.txt.length - 1);
-  } else {
-    this.txt = fullTxt.substring(0, this.txt.length + 1);
-  }
-
-  this.el.innerHTML = '<p>'+this.txt+'</p>';
-
-  var that = this;
-  var delta = 300 - Math.random() * 100;
-
-  if (this.isDeleting) { delta /= 2; }
-
-  if (!this.isDeleting && this.txt === fullTxt) {
-    delta = this.period;
-    this.isDeleting = true;
-  } else if (this.isDeleting && this.txt === '') {
-    this.isDeleting = false;
-    this.loopNum++;
-    delta = (Math.random() * 100) + 10;
-  }
-
-  setTimeout(function() {
-    that.tick();
-  }, delta);
-};
-
-
 var globalhistory = "";
 
 var globalpath = "~/"
-
-// var iTextPos = 0; // initialise text position
-// var sContents = ''; // initialise contents variable
-// var initial_data = "";
-// var iRow; // initialise current row
-
-
-// var addTextToResults = function(textToAdd){
-//
-// this.typewriter = function() {
-//
-//   var u = "<p>" + textToAdd + "</p>";
-//
-//
-//   var aText = new Array(u);
-//
-//   var typeSpeed = 60; // time delay of print out
-//   var iIndex = 0; // start printing array at this posision
-//   var iArrLength = aText[0].length; // the length of the text array
-//   var iScrollAt = 10; // start scrolling up at this many lines
-//   // var iTextPos = 0; // initialise text position
-//   // var sContents = ''; // initialise contents variable
-//   // var iRow; // initialise current row
-//
-//
-//   sContents =  ' ';
-//   iRow = Math.max(0, iIndex-iScrollAt);
-//   var destination = document.getElementById('terminalReslutsCont');
-//
-//   // while ( iRow < iIndex ) {
-//   //   sContents += aText[iRow++] + '<br />';
-//   // }
-//   destination.innerHTML = sContents + aText[iIndex].substring(0, iTextPos) + "|";
-//   if ( iTextPos++ == iArrLength ) {
-//     iTextPos = 0;
-//     iIndex++;
-//
-//     if ( iIndex != aText.length ) {
-//       iArrLength = aText[iIndex].length;
-//       setTimeout("typewriter()", typeSpeed);
-//     }
-//   } else {
-//     setTimeout("typewriter()", typeSpeed - Math.random() ** 2 * typeSpeed);
-//   }
-//
-//   // document.getElementById('terminalReslutsCont').innerHTML += "<p>" + this.textToAdd + "</p>";
-// }
-//
-// typewriter(textToAdd);
-//
-// // typewriter();
-// };
-
-
-async function loadText(url) {
-    text = await fetch(url);
-    //awaits for text.text() prop
-    //and then sends it to readText()
-    readText(await text.text());
-}
-
-function readText(text){
-    //here you can continue with your JS normal logic
-    console.log(text);
-}
 
 var dict = {
 
@@ -115,11 +8,14 @@ var dict = {
    "fullname": "Isac Per Ragnar Bruce",
    "phone": "(+46) 079 348 9745",
    "contact": "I'd Like To Hear From You.<br>Hit me up whenever you wan't, <br>I will try to answer any question, big or small.",
-   "mail": "irreq@protonmail.com",
+   "mail": "<a href='mailto:irreq@protonmail.com'><u>irreq@protonmail.com</u></a>",
    "location": "<a href='https://goo.gl/maps/D2MUaJTjyXvk5rzw9'><u><br><br>Thorildsplans gymnasium <br>Drottningholmsvägen 82 <br>112 43 Stockholm</u></a>",
+   "occupation": "Student, Developer & Hobby Scientist",
+   "programming_languages": "Python, Julia, R & JS",
 
 };
 
+document.getElementById('terminalReslutsCont').innerHTML = "Welcome to the interactive terminal!<br>I will try to guide you upon your visit on this page<br><br>Good Luck!<br>"
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -138,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
   //Getting the text from the results div
   var textResultsValue = document.getElementById('terminalReslutsCont').innerHTML;
 
+
+
   // Clear text input
   var clearInput = function(){
     document.getElementById('terminalTextInput').value = "";
@@ -149,68 +47,9 @@ document.addEventListener('DOMContentLoaded', function() {
     terminalResultsDiv.scrollTop = terminalResultsDiv.scrollHeight;
   }
 
-  // Scroll to the bottom of the results
-  scrollToBottomOfResults();
-
-  // // Add text to the results div
-  // var addTextToResults = function(textToAdd){
-  //
-  //   document.getElementById('terminalReslutsCont').innerHTML += "<p>" + textToAdd + "</p>";
-  //
-  //   // lol(textToAdd);
-  //
-  //   scrollToBottomOfResults();
-  // }
-
-  var addTextToResults = function(textToAdd){
-
-    var localTextPos = 0; // initialise text position
-
-    var typeSpeed = 60; // time delay of print out
-
-    var textData = "";
-
-
-    if (textToAdd.substring(0,2) != "<p") {
-      textData = "<p>" + textToAdd + "</p>";
-    }
-
-    else {
-      textData = textToAdd;
-    }
-
-
-    this.typewriter = function() {
-
-      var destination = document.getElementById('terminalReslutsCont');
-
-      if (localTextPos == 0) {
-        globalhistory = destination.innerHTML;
-      }
-
-
-
-      globalhistory += textData.substring(localTextPos-1,localTextPos); //getting one element at the position and appending it to the entirety
-
-      destination.innerHTML = globalhistory;
-
-      scrollToBottomOfResults();
-
-      localTextPos++
-
-      // I'm guessing the function overflows and dies but that is no issue
-
-      setTimeout("typewriter()", Math.random() * typeSpeed);
-
-    }
-
-    clearInput();
-
-    typewriter(textToAdd);
-  }
-
   // Getting the list of keywords for help & posting it to the screen
   var postHelpList = function(){
+
     // Array of all the help keywords
     var helpKeyWords = [
       "- Open + website URL to open it in the browser (ex. open webdevtrick.com)",
@@ -222,6 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "- 'tech' will make you expert by watching videos",
       "PS. There are more keywords for you to discover. ;)"
     ].join('<br>');
+
     addTextToResults(helpKeyWords);
   }
 
@@ -254,206 +94,420 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
+  var message = function(msg, hint) {
+
+    if (hint != undefined) {
+        addTextToResults("<br>"+msg + "<br><p><i>hint: try " + hint + "</i></p>");
+    }
+    else {
+      addTextToResults("<br>"+msg);
+    }
+
+  }
+
+  // cd
+  var changeDir = function(data) {
+    if (data.substr(0,2) == "/ ") {globalpath = "~/root"}
+    else if (data.substr(0,2) == ". ") {globalpath = "~/"}
+    else if (data.substr(0,3) == ".. "){
+      // go up one place
+
+      if (globalpath.length > "~/".length) {
+        globalpath = globalpath.substr(0,globalpath.lastIndexOf("/"));
+
+      }
+
+      if (globalpath.length < "~/".length) {
+        globalpath = "~/";
+      }
+
+    }
+    else if (data.substr(0,1) == "/" ) {
+
+      globalpath = "~/" + data.substr(1,data.length-1);
+
+    }
+
+    else {
+      if (globalpath.substr(0,globalpath.length) != "~/") {
+        globalpath += "/"
+
+      }
+      globalpath += data.substr(0,data.length-1)
+    }
+
+    addTextToResults("<p><i>hint: try 'ls' to list files</i></p>");
+  }
+
   // Opening links in a new window
   var openLinkInNewWindow = function(linkToOpen){
     window.open(linkToOpen, '_blank');
     clearInput();
   }
 
+
+
+  // Core functions
+
+  // Print the data
+  var addTextToResults = function(textToAdd){
+
+    // Initialise text position
+    var localTextPos = 0;
+
+    // Time delay of print out
+    var timeDelay = 30;
+
+    // Text buffer
+    var textData = "";
+
+    // Pure string needs to have padding if no padding is present
+    if (textToAdd.substring(0,2) != "<p") {
+      textData = "<p>" + textToAdd + "</p>";
+    }
+
+    else {
+      textData = textToAdd;
+    }
+
+    // The typewriter function
+    this.typewriter = function() {
+
+      // Writes to 'terminalReslutsCont'
+      var destination = document.getElementById('terminalReslutsCont');
+
+      // Previous data is stored on first iteration
+      if (localTextPos == 0) {
+        globalhistory = destination.innerHTML;
+      }
+
+      // Getting one element at the position and appending it to the entirety
+      globalhistory += textData.substring(localTextPos-1,localTextPos);
+
+      // Writes to the html
+      destination.innerHTML = globalhistory;
+
+      // Scroll to the bottom of the results
+      scrollToBottomOfResults();
+
+      if (localTextPos++ >= textData.length) {
+        return;
+      }
+
+      // Next iteration
+      // localTextPos++
+
+      // I'm guessing the function overflows and dies but that is no issue
+      setTimeout("typewriter()", Math.random() * timeDelay);
+
+    }
+
+    // Clears typed inpput
+    clearInput();
+
+    // Initialise typewriter function
+    typewriter(textToAdd);
+  }
+
   // Having a specific text reply to specific strings
   var textReplies = function() {
     switch(textInputValueLowerCase){
-      // replies
 
+      case "test":
+        message("difgkjdfgksdjhhhhhhhhhhhhhhhhhhh<br>dskjhfgjshdgfhksdgfkhsdgggggggfffffffffffffffffffffffffffff<br>edjfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff<br>dheffffffffffffffffffffffffffffffff")
+        break;
+
+      case "bird":
+        message("<pre>"+
+                "               __<br>"+
+                "             <(o )___<br>"+
+                "              ( ._> /<br>"+
+                "               `---'   "+
+                "</pre>")
+        break;
+
+      // replies
       case "about":
       case "info":
-        // clearInput();
-        addTextToResults("Hello!<br><br>I am an AI enthusiast with a peculiar inclination for learning and problem-solving. <br>Whenever I am not working on my computer, you will find me running or riding Mountainbike in the local forests.");
+        message("Hello!<br><br>I am an AI enthusiast with a peculiar inclination for learning and problem-solving. <br>Whenever I am not working on my computer, you will find me running or riding Mountainbike in the local forests.");
         break;
 
       case "details":
-        // clearInput();
-        addTextToResults("Here are my details:<br><br>Full name: Isac Per Ragnar Bruce<br>Occupation: Student, Developer & Hobby Scientist<br>");
+        message("Here are my details:<br><br>Full name: "+dict["fullname"]+"<br>Occupation: "+dict["ccupation"]+"<br>");
         break;
 
       case "name":
-        // clearInput();
-        addTextToResults("hello my name is "+dict["name"] + " <p><i>hint: try 'fullname'</i></p>");
+        message("hello my name is "+dict["name"] + " <p><i>hint: try 'fullname'</i></p>");
         break;
 
       case "cls":
       case "clear":
-        // globalhistory = "";
-        document.getElementById('terminalReslutsCont').innerHTML = ""
-        // clearInput();
-        addTextToResults("");
+        document.getElementById('terminalReslutsCont').innerHTML = "";
+        clearInput();
         break;
 
       case "pwd":
-        addTextToResults(globalpath)
+        message(globalpath)
         break;
 
       case "fullname":
-        // clearInput();
-        addTextToResults("My full name is " + dict["fullname"]);
+        message("My full name is " + dict["fullname"]);
         break;
+
+
+      // Languages
+
+      case "languages":
+      case "language":
+      case "programming languages":
+        message("I speak several languages, and I program in even more",
+        "typing 'python' or 'julia' or 'r' <br>or even spoken languages like 'swedish' or 'german'");
+        break;
+
+      case "python":
+      case "python3":
+        message("Python 3+ is my main programming language with my highest knowledge","typing 'r'");
+        break;
+
+      case "r":
+        message("R is another language that I am quite profound in","typing 'julia'");
+        break;
+
+      case "julia":
+        message("Julia is another language that I am quite profound in","typing 'js'");
+        break;
+
+      case "js":
+      case "javascript":
+        message("I have experienced knowledge in JavaScript. <br>Fun fact: this program you are interacting with is written in pure JS",
+                "typing 'python'");
+        break;
+
+      case "swedish":
+        message("Swedish is my mother tounge", "typing 'english'");
+        break;
+
+      case "english":
+        message("I have experienced knowledge in English","typing 'german'");
+        break;
+
+      case "german":
+        message("I have workable knowledge in German","typing 'swedish'");
+        break;
+
+      // Services provided
+
+      case "services":
+      case "job":
+      case "offer":
+        message("I tailor my services to fit the projects in the best ways possible."+
+          "<br>I am based in Stockholm, but I am open for relocating if necessary."+
+          "<br>I will make sure the project is due in time."+
+          "<br>If no major work is required, check out my "+dict['programming_languages']+" gigs instead:<br>Contact me at "+dict["mail"],
+        "typing 'consulting' or 'tutoring' or 'cluster' or even 'contracting' for further information")
+        break;
+
+      case "consult":
+      case "consulting":
+        message("I can provide general help with finding the right solutions <br>to meet your project's deadline in due time.<br>Contact me at "+dict["mail"]);
+        break;
+
+      case "contracting":
+      case "contract":
+        message("I write/maintain code to fit your requirements and specifications.<br>Contact me at "+dict["mail"]);
+        break;
+
+      case "teach":
+      case "teaching":
+      case "coach":
+      case "coaching":
+      case "tutor":
+      case "tutoring":
+        message("Learn how to solve problems using code. <br>You choose what to cover during Skype or Discord sessions <br>ranging from fundamental syntax to Machine Learning.<br>Contact me at "+dict["mail"]);
+        break;
+
+      case "parallel":
+      case "distributed":
+      case "beowulf":
+      case "cluster":
+      case "clustering":
+        message("Try parallel computing for educational purposes <br>on a PoC Linux Beowulf Cluster on limited hardware.<br>Contact me at "+dict["mail"]);
+        break;
+
+
+      // Projects
+
+      case "projects":
+      case "project":
+      case "programs":
+        message("I have developed several Open Source projects, have a look at the following:"+
+                "<br><a href='https://www.github.com/irreq/tism'><u>tism</u></a> -- A Deep Learning acoustic modem"+
+                "<br><a href='https://www.github.com/irreq/tism'><u>Lynn</u></a> -- An allround intelligent chatbot",
+              "typing 'Lynn' or 'tism' for further information if you prefer to stay on this page");
+        break;
+
+      case "lynn":
+        message("Lynn -- An allround intelligent chatbot"+
+                "<br>Lynn is an combined: Chatbot, Information retrieval, Media-player, Voice activity, Memory, Jokes. "+
+                "<br>The program was built using Python 3.8 and trained for 3 months on comments from <a href='https://reddit.com'>reddit</a>"+
+                "<br>and <a href='https://4chan.com'>4chan</a> on a Nvidia Tesla P100. Feel free to talk to <a href='/contact/#Lynn'>Lynn</a>"+
+                "<br>You can find the source code for Lynn on GitHub <a href='https://www.github.com/irreq/lynn'><u>here</u></a>");
+        break;
+
+      case "tism":
+      case "modem":
+        message("TISM -- A Software defined acoustic modem using deep-learning demodulation without a clock."+
+                "<br>You can find the source code for TISM on GitHub <a href='https://www.github.com/irreq/tism'><u>here</u></a>");
+        break;
+      // Contact info
 
       case "number":
       case "phone":
-        // clearInput();
-        addTextToResults("You can reach me on mobile too: "+dict["phone"]);
+        message("You can reach me on mobile too: "+dict["phone"]);
         break;
 
       case "email":
       case "mail":
-        // clearInput();
-        addTextToResults("You can easely reach me on my email: " + dict["mail"]);
+        message("You can easely reach me on my email: " + dict["mail"]);
         break;
 
       case "contact":
-        // clearInput();
-        addTextToResults(dict["contact"] + "<br><br>Phone: "+dict["phone"]+"<br><br>Email: "+dict["mail"]);
+        message(dict["contact"] + "<br><br>Phone: "+dict["phone"]+"<br><br>Email: "+dict["mail"]);
         break;
 
       case "location":
       case "address":
-        // clearInput();
-        addTextToResults("You can find me at: "+dict["location"]);
+        message("You can find me at: "+dict["location"]);
         break;
+
+      case "linkedin":
+        message("You can find me at LinkedIn <a href='https://www.linkedin.com/in/isac-bruce-b234a41a5'><u>here</u></a>");
+        break;
+
+      case "github":
+        message("You can find me at GitHub <a href='https://www.github.com/irreq'><u>here</u></a>");
+        break;
+
+      case "twitter":
+        message("You can find me at Twitter <a href='https://www.twitter.com/'><u>here</u></a>");
+        break;
+
+      case "instagram":
+      case "ig":
+        message("You can find me at Instagram <a href='https://www.instagram.com/'><u>here</u></a>");
+        break;
+
 
 
       case "code":
-        // clearInput();
-        addTextToResults("Source code is available <a href='https://github.com/irreq/irreq.github.io'><u>here</u></a>");
+        message("Source code is available <a href='https://github.com/irreq/irreq.github.io'><u>here</u></a>");
         break;
 
       case "founder":
-        // clearInput();
-        addTextToResults("Webdevtrick's founder is Shaan");
+        message("Founder is Isac");
         break;
 
-      case "shaan":
-        // clearInput();
-        addTextToResults("Shaan is founder of this blog and he is a Developer, SEO, and Graphic Designer");
+      case "isac":
+        message("Isac is founder of this portfolio and he is a "+dict["occupation"].toLowerCase(),
+                "Have you tried typing 'founder'?");
         break;
 
-      case "web development":
-      case "web dev":
-      case "webdevelopment":
-        // clearInput();
-        addTextToResults('Web development examples!');
-        openLinkInNewWindow('https://webdevtrick.com/web-development/');
+      case "who":
+      case "who are you?":
+      case "who are you":
+        message("I'm a personal assistant trying to help you find stuff on this site.",
+                "Have you tried typing 'isac' or 'info' or even 'contact'?"
+                )
         break;
 
       case "hello":
       case "hi":
-        // clearInput();
-        addTextToResults("Hello, I am your assistant... I am based on pure vanilla JavaScript.");
+        message("Hello, I am your assistant... I am based on pure JavaScript.");
         break;
 
+      case "nice":
+      case "ok":
+      case "good":
+      case "cool":
+        message("Good!");
+        break;
 
+      // Help replies
 
-
-      // replies
+      case "repeat":
+      case "echo":
+        message("Type 'echo' + something you wan't to echo/repeat, eg. 'Hello, World!'")
+        break;
 
       case "cd":
-        addTextToResults("Type cd + a path, eg: 'home'.");
+        message("Type cd + a path, eg: 'home'.");
         break;
 
       case "youtube":
-        // clearInput();
-        addTextToResults("Type youtube + something to search for.");
+        message("Type youtube + something to search for.");
         break;
 
       case "google":
-        // clearInput();
-        addTextToResults("Type google + something to search for.");
+        message("Type google + something to search for.");
         break;
 
         case "wiki":
         case "wikipedia":
-          // clearInput();
-          addTextToResults("Type wiki + something to search for.");
+          message("Type wiki + something to search for.");
           break;
 
+      // Functions
+
       case "time":
-        // clearInput();
         getTimeAndDate("time");
         break;
 
       case "date":
-        // clearInput();
         getTimeAndDate("date");
         break;
 
       case "help":
       case "?":
-        // clearInput();
         postHelpList();
         break;
 
       default:
-      // clearInput();
-      addTextToResults("<p><i>The command " + "<b>" + textInputValue + "</b>" + " was not found. Type <b>Help</b> to see all commands.</i></p>");
+      message("<i>The command <b>" + textInputValue + "</b> was not found.</i>"," Type <b>Help</b> to see all commands.");
       break;
     }
   }
 
 // Main function to check the entered text and assign it to the correct function
   var checkWord = function() {
-    textInputValue = document.getElementById('terminalTextInput').value.trim(); //get the text from the text input to a variable
-    textInputValueLowerCase = textInputValue.toLowerCase(); //get the lower case of the string
 
-    if (textInputValue != ""){ //checking if text was entered
-      document.getElementById('terminalReslutsCont').innerHTML += "<p class='userEnteredText'>"+globalpath+"> " + textInputValue + "</p>";
-      // addTextToResults("<p class='userEnteredText'>> " + textInputValue + "</p>");
-      if (textInputValueLowerCase.substr(0,5) == "open ") { //if the first 5 characters = open + space
+    // Get the text from the text input to a variable
+    textInputValue = document.getElementById('terminalTextInput').value.trim();
+
+    // lower case of the string
+    textInputValueLowerCase = textInputValue.toLowerCase();
+
+    if (textInputValue != "") {
+
+      // Check if text was entered
+      document.getElementById('terminalReslutsCont').innerHTML += "<br><p class='userEnteredText'>"+globalpath+"> " + textInputValue + "</p>";
+
+      // If the first 5 characters = open + space
+      if (textInputValueLowerCase.substr(0,5) == "open ") {
         openLinkInNewWindow('http://' + textInputValueLowerCase.substr(5));
-        addTextToResults("<i>The URL " + "<b>" + textInputValue.substr(5) + "</b>" + " should be opened now.</i>");
+        message("<i>The URL " + "<b>" + textInputValue.substr(5) + "</b>" + " should be opened now.</i>");
       } else if (textInputValueLowerCase.substr(0,3) == "cd ") {
-
-        var data = textInputValueLowerCase.substr(3) + " ";
-
-        if (data.substr(0,2) == "/ ") {globalpath = "~/root"}
-        else if (data.substr(0,2) == ". ") {globalpath = "~/"}
-        else if (data.substr(0,3) == ".. "){
-          // go up one place
-
-          if (globalpath.length > "~/".length) {
-            globalpath = globalpath.substr(0,globalpath.lastIndexOf("/"));
-
-          }
-
-          if (globalpath.length < "~/".length) {
-            globalpath = "~/";
-          }
-
-        }
-        else if (data.substr(0,1) == "/" ) {
-
-          globalpath = "~/" + data.substr(1,data.length-1);
-
-        }
-
-        else {
-          if (globalpath.substr(0,globalpath.length) != "~/") {
-            globalpath += "/"
-
-          }
-          globalpath += data.substr(0,data.length-1)
-        }
-
-        addTextToResults("<p><i>hint: try 'ls' to list files</i></p>");
-
+        changeDir(textInputValueLowerCase.substr(3) + " ");
+      } else if (textInputValueLowerCase.substr(0,5) == "echo ") {
+        message(textInputValue.substr(5))
       } else if (textInputValueLowerCase.substr(0,8) == "youtube ") {
         openLinkInNewWindow('https://www.youtube.com/results?search_query=' + textInputValueLowerCase.substr(8));
-        addTextToResults("<i>I've searched on YouTube for " + "<b>" + textInputValue.substr(8) + "</b>" + " it should be opened now.</i>");
+        message("<i>I've searched on YouTube for " + "<b>" + textInputValue.substr(8) + "</b>" + " it should be opened now.</i>");
       } else if (textInputValueLowerCase.substr(0,7) == "google ") {
         openLinkInNewWindow('https://www.google.com/search?q=' + textInputValueLowerCase.substr(7));
-        addTextToResults("<i>I've searched on Google for " + "<b>" + textInputValue.substr(7) + "</b>" + " it should be opened now.</i>");
+        message("<i>I've searched on Google for " + "<b>" + textInputValue.substr(7) + "</b>" + " it should be opened now.</i>");
       } else if (textInputValueLowerCase.substr(0,5) == "wiki "){
         openLinkInNewWindow('https://wikipedia.org/w/index.php?search=' + textInputValueLowerCase.substr(5));
-        addTextToResults("<i>I've searched on Wikipedia for " + "<b>" + textInputValue.substr(5) + "</b>" + " it should be opened now.</i>");
+        message("<i>I've searched on Wikipedia for " + "<b>" + textInputValue.substr(5) + "</b>" + " it should be opened now.</i>");
       } else{
         textReplies();
       }
