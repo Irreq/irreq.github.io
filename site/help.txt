@@ -1,0 +1,11 @@
+- 'Projects' will display projects.
+- 'Services' will display services.
+- 'About' will display information about Isac.
+- 'languages' will display information about languages.
+- Open + website URL to open it in the browser (ex. open webdevtrick.com)
+- Google + keyword to search directly in Google (ex. google web development)
+- YouTube + keyword to search directly in YouTube (ex. Technical Freaks)
+- Wiki + keyword to search directly in Wikipedia (ex. wiki numbers)
+- 'Time' will display the current time.
+- 'Date' will display the current date.
+- 'tech' will make you expert by watching videos
