@@ -1,13 +1,8 @@
 var globalhistory = "";   // Everything entered in the terminal
-
 var globalpath = "~/"   // The initial path
-
 var terminalTextLengthLimit = 80;   // The maximum horizontal length
-
 var timeDelay = 30;   // Time delay of print out
-
 var initiated = false;
-
 var dict = {
    "rooturl": "https://raw.githubusercontent.com/Irreq/irreq.github.io/main/site/",
    "name": "Isac",
@@ -33,25 +28,22 @@ var dict = {
             "</pre>",
 };
 
-document.getElementById('terminalReslutsCont').innerHTML = "<pre>   Welcome to the interactive terminal!<br>   "+
-                                                           "I will try to guide you on your visit <br>   to this terminal based website<br>"+dict["bird"]+"<pre>            Good  Luck!</pre><br>"
+document.getElementById('terminalReslutsCont').innerHTML = "Welcome to the interactive terminal!<br>   "+
+                                                           "I will try to guide you on your visit to this terminal aided website<br><pre>"+dict["bird"]+"</pre>Good  Luck!<br>"
+
 
 document.addEventListener('DOMContentLoaded', function() {
 
   document.getElementsByTagName('form')[0].onsubmit = function(evt) {
-    evt.preventDefault(); // Preventing the form from submitting
-    checkWord(); // Do your magic and check the entered word/sentence
-    window.scrollTo(0,150);
+    evt.preventDefault();   // Preventing the form from submitting
+    checkWord();    // Do your magic and check the entered word/sentence
+    // window.scrollTo(0,150); // No need to scroll everytime
   }
 
-  // Get the focus to the text input to enter a word right away.
-  document.getElementById('terminalTextInput').focus();
+  document.getElementById('terminalTextInput').focus();   // Get the focus to the text input to enter a word right away.
 
-  // Getting the text from the input
-  var textInputValue = document.getElementById('terminalTextInput').value.trim();
-
-  //Getting the text from the results div
-  var textResultsValue = document.getElementById('terminalReslutsCont').innerHTML;
+  var textInputValue = document.getElementById('terminalTextInput').value.trim();   // Getting the text from the input
+  var textResultsValue = document.getElementById('terminalReslutsCont').innerHTML;    //Getting the text from the results div
 
   // Clear text input
   var clearInput = function(){
@@ -64,29 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
     terminalResultsDiv.scrollTop = terminalResultsDiv.scrollHeight;
   }
 
-  // Getting the list of keywords for help & posting it to the screen
-  var postHelpList = function(){
 
-    // Array of all the help keywords
-    var helpKeyWords = [
-      "<br>",
-      "- 'Projects' will display projects.",
-      "- 'Services' will display services.",
-      "- 'About' will display information about " + dict["name"]+ ".",
-      "- 'languages' will display information about languages.",
-      "- Open + website URL to open it in the browser (ex. open webdevtrick.com)",
-      "- Google + keyword to search directly in Google (ex. google web development)",
-      "- YouTube + keyword to search directly in YouTube (ex. Technical Freaks)",
-      "- Wiki + keyword to search directly in Wikipedia (ex. wiki numbers)",
-      "- 'Time' will display the current time.",
-      "- 'Date' will display the current date.",
-      "- 'tech' will make you expert by watching videos",
-    ].join('<br>');
-
-    document.getElementById('terminalReslutsCont').innerHTML += helpKeyWords+dict["bird"];
-    message("Here are some stuff for you to try out! <br>PS. there is more for you to discover.")
-
-  }
 
   // Getting the time and date and post it depending on what you request for
   var getTimeAndDate = function(postTimeDay){
@@ -155,13 +125,19 @@ document.addEventListener('DOMContentLoaded', function() {
   // Core functions
 
   // Retrieve data from remote file
-  var getTextData = function(query) {
+  var getTextData = function(query, ifError) {
     fetch(query)
       .then(function(response) {
         response.text().then(function(text) {
           if (text.includes("404: Not Found")) {
-            message("Sorry, I was unable to find '"+query+"'");
+            if (ifError != undefined) {
+              ifError();
+            } else {
+              message("Sorry, I was unable to find '"+query+"'");
+            }
           } else {
+            // message("<pre class='word-wrap: break-word;'>"+text+"</pre>");
+            // message(text);
             message("<pre>"+text+"</pre>");
           }
         });
@@ -211,6 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (msg.includes("<br>") == false) {
         if (msg.includes("<pre>") == false) {
           addTextToResults(splitter(msg));
+          // addTextToResults(msg);
         } else {
           addTextToResults(msg);
         }
@@ -540,11 +517,6 @@ document.addEventListener('DOMContentLoaded', function() {
         getTimeAndDate("date");
         break;
 
-      case "help":
-      case "?":
-        postHelpList();
-        break;
-
       default:
       message("<i>The command <b>" + textInputValue + "</b> was not found.</i>"," type <b>Help</b> to see all commands.");
       break;
@@ -581,18 +553,8 @@ document.addEventListener('DOMContentLoaded', function() {
       } else if (textInputValueLowerCase.substr(0,5) == "wiki "){
         openLinkInNewWindow('https://wikipedia.org/w/index.php?search=' + textInputValueLowerCase.substr(5));
         message("<i>I've searched on Wikipedia for " + "<b>" + textInputValue.substr(5) + "</b>" + " it should be opened now.</i>");
-      } else{
-        fetch(dict["rooturl"]+textInputValue.substr(5)+".txt")
-          .then(function(response) {
-            response.text().then(function(text) {
-              if (text.includes("404: Not Found")) {
-                textReplies();
-              } else {
-                message("<pre>"+text+"</pre>");
-              }
-            });
-          });
-        // textReplies();
+      } else {
+        getTextData(dict["rooturl"]+textInputValue+".txt", textReplies);    // Last arguments is what happens if a 404 error occurs
       }
     }
   };
