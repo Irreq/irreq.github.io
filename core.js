@@ -29,9 +29,6 @@ var dict = {
 };
 
 
-
-
-
 document.getElementById('terminalContentsResult').innerHTML = "<strong>Welcome to Isac's interactive portfolio!</strong><br><br>   "+
                                                            "I am your assistant and I will help you find out information about Isac.<br><br>"+
                                                            "The terminal in front of you is known as a 'Command-Line Interface' <i>abbreviated to</i> 'CLI'. "+
@@ -135,11 +132,12 @@ document.addEventListener('DOMContentLoaded', function() {
       dataType: "json"
     }).done(function(result) {
       var text, i;
-      text = "Here are my projects hosted on <a href='https://github.com/Irreq'><u>GitHub</u></a>:<br>";
+      text = "<p>Here are my projects hosted on <a href='https://github.com/Irreq'><u>GitHub</u></a>:<br>";
       for (i = 0; i < result.length; i++) {
-        text += "<br>" + result[i].name + " -- " + result[i].description + ". You can find the source code for '"+result[i].name+"' on GitHub <a href='"+ result[i].html_url+"'><u>here</u></a>.<br>";
+        text += "<br><a href='"+ result[i].html_url+"'><u>"+result[i].name+"</u></a> - " + result[i].description;
       }
-      message(text,"Try typing the name of one of the projects listed above!");
+      text += "<br><br>Try typing the name of one of the projects listed above!</p>";
+      message(text);
     });
   };
 
@@ -416,18 +414,15 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
 
 
-
+      case "site":
       case "code":
-        message("Source code is available <a href='https://github.com/irreq/irreq.github.io'><u>here</u></a>");
+        message("This is a minimalist terminal portfolio. Source code is available <a href='https://github.com/irreq/irreq.github.io'><u>here</u></a>");
         break;
 
       case "founder":
-        message("Founder is Isac");
-        break;
-
       case "isac":
         message("Isac is founder of this portfolio and he is a "+dict["occupation"].toLowerCase(),
-                "Have you tried typing 'founder'?");
+                "Have you tried typing 'site'?");
         break;
 
       case "who":
@@ -443,6 +438,8 @@ document.addEventListener('DOMContentLoaded', function() {
         message("Hello, I am your assistant. I am powered by pure JavaScript and fueled by the joy of coding.");
         break;
 
+      case "hahaha":
+      case "lmao":
       case "lol":
         message("Hahaha");
         break;
@@ -471,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       case "speed":
         document.getElementById('terminalContentsResult').innerHTML += dict["construction"];
-        message("This function is still under construction, thank you for your interest. In the meantime have a look at 'echo'");
+        message("This function is still under construction, thank you for your interest. In the meantime, have a look at 'Echo'.");
         break;
 
       case "cd":
