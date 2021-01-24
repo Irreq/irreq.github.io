@@ -387,14 +387,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
       // Projects
-
       case "projects":
       case "project":
       case "programs":
-        // message("I have developed several Open Source projects, have a look at the following:"+
-        //         "<br><a href='https://www.github.com/irreq/tism'><u>tism</u></a> -- A Deep Learning acoustic modem"+
-        //         "<br><a href='https://www.github.com/irreq/tism'><u>Lynn</u></a> -- An allround intelligent chatbot",
-        //       "typing 'Lynn' or 'tism' for further information if you prefer to stay on this page");
         getExternalJSON();
         break;
 

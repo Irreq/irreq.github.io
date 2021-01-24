@@ -1,0 +1,9 @@
+I program in several languages, and I am an functional programming advocate!
+Here are some of my more common languages and skill levels:
+
+-  'Python3'   - 80% - AI, data-science and bots.
+-     'R'      - 45% - Statistical programming etc.
+-   'Julia'    - 70% - AI and data-science.
+- 'JavaScript' - 60% - Web applications, embedded systems. + this site :D
+
+Try typing any of the ones listed above for a more detailed answer.
