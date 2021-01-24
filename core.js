@@ -1,8 +1,20 @@
+// Author: Irreq
+//
+// This is the core of the website. This file contains:
+// [1] Retrieve text from external sites.
+// [2] Typewriter abbillities.
+// [3] Small chatbot.
+//
+// See individual comments for further documentation
+
+
+// Variables and values
 var globalhistory = "";   // Everything entered in the terminal
 var globalpath = "~/"   // The initial path
 var terminalTextLengthLimit = 80;   // The maximum horizontal length
 var timeDelay = 10;   // Time delay of print out
-var initiated = false;
+var oldTypeWriter = true; // If the site should be typed as a typewriter
+var storageLength = 3000; // How many characters the terminal will keep in memory
 var dict = {
    "rooturl": "https://raw.githubusercontent.com/Irreq/irreq.github.io/main/site/",
    "name": "Isac",
@@ -28,12 +40,13 @@ var dict = {
             "</pre>",
 };
 
-
+// "Landing page"
 document.getElementById('terminalContentsResult').innerHTML = "<strong>Welcome to Isac's interactive portfolio!</strong><br><br>   "+
+                                                           "This portfolio was developed to look like an old computer, it is therefore recomended to view this terminal on a computer.<br><br>"+
                                                            "I am your assistant and I will help you find out information about Isac.<br><br>"+
                                                            "The terminal in front of you is known as a 'Command-Line Interface' <i>abbreviated to</i> 'CLI'. "+
                                                            "A (CLI) processes commands to a computer program in the form of lines of text. - <i>Wikipedia</i><br><br>"+
-                                                           "Unlike the majority of websites, this website can help you find what you are looking for with just a keyboard.<br><br>"+
+                                                           "Unlike the majority of websites, this website can help you find what you are looking for with just a <i>keyboard</i>.<br><br>"+
                                                            "I can assure you that this terminal is completely harmless as it runs in your browser, so do not fear typing anything. If you are still in doubt, here is a harmless cyber duck:<br>"+
                                                            dict["bird"]+
                                                            "</pre>Good  Luck!<br>";
@@ -51,18 +64,14 @@ document.addEventListener('DOMContentLoaded', function() {
   var textInputValue = document.getElementById('terminalTextInput').value.trim();   // Getting the text from the input
   var textResultsValue = document.getElementById('terminalContentsResult').innerHTML;    //Getting the text from the results div
 
-  // Clear text input
-  var clearInput = function(){
+  var clearInput = function(){ // Clear text input
     document.getElementById('terminalTextInput').value = "";
   }
 
-  // Scrtoll to the bottom of the results div
-  var scrollToBottomOfResults = function(){
+  var scrollToBottomOfResults = function(){ // Scroll to the bottom of the results div
     var terminalResultsDiv = document.getElementById('terminalContentsResult');
     terminalResultsDiv.scrollTop = terminalResultsDiv.scrollHeight;
   }
-
-
 
   // Getting the time and date and post it depending on what you request for
   var getTimeAndDate = function(postTimeDay){
@@ -226,36 +235,44 @@ document.addEventListener('DOMContentLoaded', function() {
       textData = textToAdd;
     }
 
-    this.typewriter = function() {    // The typewriter function
+    clearInput();   // Clears typed input
 
-      var destination = document.getElementById('terminalContentsResult');   // Writes to 'terminalContentsResult'
+    if (oldTypeWriter == true){
+      this.typewriter = function() {    // The typewriter function
 
-      if (localTextPos == 0) {    // Previous data is stored on first iteration
-        globalhistory = destination.innerHTML;
+        var destination = document.getElementById('terminalContentsResult');   // Writes to 'terminalContentsResult'
+
+        if (localTextPos == 0) {    // Previous data is stored on first iteration
+          globalhistory = destination.innerHTML.slice(-storageLength);
+        }
+
+        // Getting one element at the position and appending it to the entirety
+        globalhistory += textData.substring(localTextPos-1,localTextPos);
+
+        // Writes to the html
+        destination.innerHTML = globalhistory;
+
+        // Scroll to the bottom of the results
+        scrollToBottomOfResults();
+
+        if (localTextPos++ >= textData.length) {
+          return;
+        }
+
+        // I'm guessing the function overflows and dies but that is no issue
+        setTimeout("typewriter()", Math.random() * timeDelay);
       }
 
-      // Getting one element at the position and appending it to the entirety
-      globalhistory += textData.substring(localTextPos-1,localTextPos);
+      typewriter(textToAdd);    // Initialise typewriter function
 
-      // Writes to the html
-      destination.innerHTML = globalhistory;
-
-      // Scroll to the bottom of the results
+    } else {
+      document.getElementById('terminalContentsResult').innerHTML += textData;
       scrollToBottomOfResults();
-
-      if (localTextPos++ >= textData.length) {
-        return;
-      }
-
-      // I'm guessing the function overflows and dies but that is no issue
-      setTimeout("typewriter()", Math.random() * timeDelay);
     }
 
-    clearInput();   // Clears typed inpput
-    typewriter(textToAdd);    // Initialise typewriter function
   }
 
-  // Having a specific text reply to specific strings
+  // Having a specific text reply This part is extremely long as cases are being used
   var textReplies = function() {
     switch(textInputValueLowerCase){
 
@@ -283,6 +300,16 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('terminalContentsResult').innerHTML = "";
         clearInput();
         break;
+
+      case "type":
+        if (oldTypeWriter == true) {
+          oldTypeWriter = false;
+          message("The terminal will now statically serve data!")
+        } else {
+          oldTypeWriter = true;
+          message("The terminal will now operate like a typewriter!")
+        }
+
 
       case "pwd":
       case "ls":
@@ -401,7 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
 
       case "github":
-        message("You can find me at GitHub <a href='https://www.github.com/irreq'><u>here</u></a>");
+        message("You can find me on GitHub <a href='https://www.github.com/irreq'><u>here</u></a>");
         break;
 
       case "twitter":
@@ -466,6 +493,7 @@ document.addEventListener('DOMContentLoaded', function() {
         message("Type 'echo' + something you wan't to echo/repeat, eg. 'Hello, World!'")
         break;
 
+      case "picture":
       case "speed":
         document.getElementById('terminalContentsResult').innerHTML += dict["construction"];
         message("This function is still under construction, thank you for your interest. In the meantime, have a look at 'Echo'.");

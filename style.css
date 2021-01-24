@@ -47,7 +47,7 @@ body{
 
 #terminalContentsResult{
 	width:100%;
-  height: 70vh; /* denna styr hur hög terminalen är */
+  height: 70vh; /* Terminal height*/
 	padding: 10px;
 	overflow-y: auto;
 	resize: none;

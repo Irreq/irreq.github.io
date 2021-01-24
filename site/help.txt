@@ -6,8 +6,10 @@ Here are some neat functions to help you find what you are looking for:
 -   'Social'    - Where you can reach or look at Isac's work.
 - 'Programming' - View the programming languages.
 -  'Languages'  - View information about Isac's lingual skills.
+-  'Education'  - View information about Isac's education.
 -    'Time'     - Display the current time.
 -    'Date'     - Display the current date.
+-   'Credits'   - The boring credits...
 
 
 Functions that require keywords:
