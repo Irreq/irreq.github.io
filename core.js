@@ -38,9 +38,7 @@ document.getElementById('terminalContentsResult').innerHTML = "<strong>Welcome t
                                                            "A (CLI) processes commands to a computer program in the form of lines of text. - <i>Wikipedia</i><br><br>"+
                                                            "Unlike the majority of websites, this website can help you find what you are looking for with just a keyboard.<br><br>"+
                                                            "I can assure you that this terminal is completely harmless as it runs in your browser, so do not fear typing anything. If you are still in doubt, here is a harmless cyber duck:<br>"+
-
                                                            dict["bird"]+
-
                                                            "</pre>Good  Luck!<br>";
 
 
@@ -159,8 +157,6 @@ document.addEventListener('DOMContentLoaded', function() {
               message("Sorry, I was unable to find '"+query+"'");
             }
           } else {
-            // message("<pre class='word-wrap: break-word;'>"+text+"</pre>");
-            // message(text);
             message("<pre>"+text+"</pre>");
           }
         });
@@ -276,11 +272,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // replies
 
-      case "about":
-      case "info":
-        message("Hello!<br><br>I am an AI enthusiast with a peculiar inclination for learning and problem-solving. Whenever I am not working on my computer, you will find me running or riding Mountainbike in the local forests.");
-        break;
-
       case "details":
         message("Here are my details:<br><br>Full name: "+dict["fullname"]+"<br>Occupation: "+dict["ccupation"]+"<br>");
         break;
@@ -306,13 +297,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
       // Languages
-
-      case "languages":
-      case "language":
-      case "programming languages":
-        message("I speak several languages, and I program in even more",
-        "typing 'python' or 'julia' or 'r' or even spoken languages like 'swedish' or 'german'");
-        break;
 
       case "python":
       case "python3":
@@ -347,16 +331,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
       // Services provided
-
-      case "services":
-      case "job":
-      case "offer":
-        message("I tailor my services to fit the projects in the best ways possible."+
-          " I am based in Stockholm, but I am open for relocating if necessary."+
-          " I will make sure the project is due in time."+
-          " If no major work is required, check out my "+dict['programming_languages']+" gigs instead:<br>Contact me at "+dict["mail"],
-        "typing 'consulting' or 'tutoring' or 'cluster' or even 'contracting' for further information")
-        break;
 
       case "consult":
       case "consulting":
@@ -409,7 +383,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
       // Contact info
-
       case "number":
       case "phone":
         message("You can reach me on mobile too: "+dict["phone"]);
@@ -418,10 +391,6 @@ document.addEventListener('DOMContentLoaded', function() {
       case "email":
       case "mail":
         message("You can easely reach me on my email: " + dict["mail"]);
-        break;
-
-      case "contact":
-        message(dict["contact"] + "<br><br>Phone: "+dict["phone"]+"<br><br>Email: "+dict["mail"]);
         break;
 
       case "location":

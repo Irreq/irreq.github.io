@@ -5,7 +5,7 @@ If no major work is required, check out my gigs instead:
 
 - 'Consulting'  - General help with finding solutions to your project.
 - 'Contracting' - I write/maintain your code.
-- 'Tutoring'    - Learn how to solve problems using code.
+-  'Tutoring'   - Learn how to solve problems using code.
 - 'Clustering'  - Parallel computing for educational purposes.
 
 Try typing any of the ones listed above for a more detailed answer.
