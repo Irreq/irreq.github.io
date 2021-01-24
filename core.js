@@ -1,7 +1,7 @@
 var globalhistory = "";   // Everything entered in the terminal
 var globalpath = "~/"   // The initial path
 var terminalTextLengthLimit = 80;   // The maximum horizontal length
-var timeDelay = 30;   // Time delay of print out
+var timeDelay = 10;   // Time delay of print out
 var initiated = false;
 var dict = {
    "rooturl": "https://raw.githubusercontent.com/Irreq/irreq.github.io/main/site/",
@@ -13,14 +13,14 @@ var dict = {
    "location": "<a href='https://goo.gl/maps/D2MUaJTjyXvk5rzw9'><u><br><br>Thorildsplans gymnasium <br>Drottningholmsvägen 82 <br>112 43 Stockholm</u></a>",
    "occupation": "Student, Developer & Hobby Scientist",
    "programming_languages": "Python, Julia, R & JS",
-   "construction": "<pre>                             _<br>"+
+   "construction": "<pre style='color: yellow;'>                             _<br>"+
                    "                     /======/                           <br>"+
                    "            ____    //      \___,       ,/101010               <br>"+
                    "             | \\   //          ,:,   ./101010101                  <br>"+
                    "     |¨¨¨¨¨¨¨|__|_//            ,;:; /10010101101                   <br>"+
                    "    _L_____________\o           ,;;;/1010101011101                    <br>"+
                    ".,,.(O_o_o_o_o_o_o_O),,.,.,.,...,.-/101010101010101,,.,., Isac Bruce .,.,,,.,.,</pre>",
-    "bird": "<pre>"+
+    "bird": "<pre style='background: yellow; -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>"+
             "               __<br>"+
             "             <(o )___<br>"+
             "              ( ._> /<br>"+
@@ -28,22 +28,33 @@ var dict = {
             "</pre>",
 };
 
-document.getElementById('terminalReslutsCont').innerHTML = "Welcome to the interactive terminal!<br>   "+
-                                                           "I will try to guide you on your visit to this terminal aided website<br><pre>"+dict["bird"]+"</pre>Good  Luck!<br>"
+
+
+
+
+document.getElementById('terminalContentsResult').innerHTML = "<strong>Welcome to Isac's interactive portfolio!</strong><br><br>   "+
+                                                           "I am your assistant and I will help you find out information about Isac.<br><br>"+
+                                                           "The terminal in front of you is known as a 'Command-Line Interface' <i>abbreviated to</i> 'CLI'. "+
+                                                           "A (CLI) processes commands to a computer program in the form of lines of text. - <i>Wikipedia</i><br><br>"+
+                                                           "Unlike the majority of websites, this website can help you find what you are looking for with just a keyboard.<br><br>"+
+                                                           "I can assure you that this terminal is completely harmless as it runs in your browser, so do not fear typing anything. If you are still in doubt, here is a harmless cyber duck:<br>"+
+
+                                                           dict["bird"]+
+
+                                                           "</pre>Good  Luck!<br>";
 
 
 document.addEventListener('DOMContentLoaded', function() {
 
   document.getElementsByTagName('form')[0].onsubmit = function(evt) {
     evt.preventDefault();   // Preventing the form from submitting
-    checkWord();    // Do your magic and check the entered word/sentence
-    // window.scrollTo(0,150); // No need to scroll everytime
+    checkWord();    // Will check the entered word/sentence
   }
 
   document.getElementById('terminalTextInput').focus();   // Get the focus to the text input to enter a word right away.
 
   var textInputValue = document.getElementById('terminalTextInput').value.trim();   // Getting the text from the input
-  var textResultsValue = document.getElementById('terminalReslutsCont').innerHTML;    //Getting the text from the results div
+  var textResultsValue = document.getElementById('terminalContentsResult').innerHTML;    //Getting the text from the results div
 
   // Clear text input
   var clearInput = function(){
@@ -52,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Scrtoll to the bottom of the results div
   var scrollToBottomOfResults = function(){
-    var terminalResultsDiv = document.getElementById('terminalReslutsCont');
+    var terminalResultsDiv = document.getElementById('terminalContentsResult');
     terminalResultsDiv.scrollTop = terminalResultsDiv.scrollHeight;
   }
 
@@ -120,7 +131,19 @@ document.addEventListener('DOMContentLoaded', function() {
     clearInput();
   }
 
-
+  var getExternalJSON = function(query) {
+    $.ajax({
+      url: "https://api.github.com/users/Irreq/repos",
+      dataType: "json"
+    }).done(function(result) {
+      var text, i;
+      text = "Here are my projects hosted on <a href='https://github.com/Irreq'><u>GitHub</u></a>:<br>";
+      for (i = 0; i < result.length; i++) {
+        text += "<br>" + result[i].name + " -- " + result[i].description + ". You can find the source code for '"+result[i].name+"' on GitHub <a href='"+ result[i].html_url+"'><u>here</u></a>.<br>";
+      }
+      message(text,"Try typing the name of one of the projects listed above!");
+    });
+  };
 
   // Core functions
 
@@ -211,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     this.typewriter = function() {    // The typewriter function
 
-      var destination = document.getElementById('terminalReslutsCont');   // Writes to 'terminalReslutsCont'
+      var destination = document.getElementById('terminalContentsResult');   // Writes to 'terminalContentsResult'
 
       if (localTextPos == 0) {    // Previous data is stored on first iteration
         globalhistory = destination.innerHTML;
@@ -268,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       case "cls":
       case "clear":
-        document.getElementById('terminalReslutsCont').innerHTML = "";
+        document.getElementById('terminalContentsResult').innerHTML = "";
         clearInput();
         break;
 
@@ -368,10 +391,11 @@ document.addEventListener('DOMContentLoaded', function() {
       case "projects":
       case "project":
       case "programs":
-        message("I have developed several Open Source projects, have a look at the following:"+
-                "<br><a href='https://www.github.com/irreq/tism'><u>tism</u></a> -- A Deep Learning acoustic modem"+
-                "<br><a href='https://www.github.com/irreq/tism'><u>Lynn</u></a> -- An allround intelligent chatbot",
-              "typing 'Lynn' or 'tism' for further information if you prefer to stay on this page");
+        // message("I have developed several Open Source projects, have a look at the following:"+
+        //         "<br><a href='https://www.github.com/irreq/tism'><u>tism</u></a> -- A Deep Learning acoustic modem"+
+        //         "<br><a href='https://www.github.com/irreq/tism'><u>Lynn</u></a> -- An allround intelligent chatbot",
+        //       "typing 'Lynn' or 'tism' for further information if you prefer to stay on this page");
+        getExternalJSON();
         break;
 
       case "lynn":
@@ -482,7 +506,7 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
 
       case "speed":
-        document.getElementById('terminalReslutsCont').innerHTML += dict["construction"];
+        document.getElementById('terminalContentsResult').innerHTML += dict["construction"];
         message("This function is still under construction, thank you for your interest. In the meantime have a look at 'echo'");
         break;
 
@@ -531,7 +555,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (textInputValue != "") {
       // Check if text was entered
-      document.getElementById('terminalReslutsCont').innerHTML += "<br><p class='userEnteredText'>"+globalpath+"> " + textInputValue + "</p>";
+      document.getElementById('terminalContentsResult').innerHTML += "<br><p class='userEnteredText'>"+globalpath+"> " + textInputValue + "</p>";
 
       if (textInputValueLowerCase.substr(0,5) == "open ") {   // If the first 5 characters = open + space
         openLinkInNewWindow('http://' + textInputValueLowerCase.substr(5));
