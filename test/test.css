@@ -24,8 +24,6 @@ img {
 }
 
 .terminalCont {
-  /* word-break: break-all; */
-  /* background: black; */
   background: var(--terminal-color);
   width: 25%;
   border-radius: 10px;
@@ -42,7 +40,6 @@ img {
   animation:
     slideDownAnimation 1s ease-in-out 1s forwards,
     fadeInAnimation 0.8s ease-in-out 1s forwards;
-
 }
 
 .main {
@@ -52,9 +49,9 @@ img {
   margin-bottom: 20%;
   margin-left: 2%;
   border-radius: 10px;
-  /* background: black; */
   background: var(--terminal-color);
   position: center;
+
   top: 100%;
   min-height: 100%;
   font-family: var(--font);
@@ -106,7 +103,6 @@ img {
 
 #terminalTextInput{
   word-wrap: break-word;
-	/* background: black; */
   background: var(--terminal-color);
 	display: block;
 	border: none;
