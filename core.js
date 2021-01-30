@@ -40,9 +40,16 @@ const metaInfo = {
             "</pre>",
 };
 
+// Notify Mobile users
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+  document.getElementById('terminalContentsResult').innerHTML = "<pre style='background: red; -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>WARNING</pre><br>"+
+  "Dear visitor, <br><br>This portfolio was developed to look like a terminal, it is therefore recomended to continue your visit on a computer.<br><br>( ._.)<br><br>But please hang on, I am working on a mobile version too, <a href='https://www.github.com/irreq'><u>here</u></a>!<br><br>If you still want to proceed, here is the desktop site:<br><br><br><br>";
+
+}
+
 // "Landing page"
-document.getElementById('terminalContentsResult').innerHTML = "<strong>Welcome to Isac's interactive portfolio!</strong><br><br>   "+
-                                                           "This portfolio was developed to look like a terminal, it is therefore recomended to continue your visit on a computer.<br><br>"+
+document.getElementById('terminalContentsResult').innerHTML += "<strong>Welcome to Isac's interactive portfolio!</strong><br><br>   "+
+
                                                            "I am your assistant and I will help you find out information about Isac. Even though I am a program, I cannot solve everything (yet), so please type keywords or really short sentences, so I can assist you!<br><br>"+
                                                            "The terminal in front of you is known as a 'Command-Line Interface' <i>abbreviated to</i> 'CLI'. "+
                                                            "A (CLI) processes commands to a computer program in the form of lines of text. - <i>Wikipedia</i><br><br>"+
@@ -50,6 +57,8 @@ document.getElementById('terminalContentsResult').innerHTML = "<strong>Welcome t
                                                            "I can assure you that this terminal is completely harmless as it runs in your browser, so do not fear typing anything. If you are still in doubt, here is a harmless cyber duck:<br>"+
                                                            metaInfo["bird"]+
                                                            "</pre>Good  Luck!<br><br>PS. If the site feels slow, try typing: 'clear' to remove all content. If you prefer a quick response, try typing: 'type' to disable/enable the typewriter effect.<br>";
+
+
 
 
 document.addEventListener('DOMContentLoaded', function() {
