@@ -205,22 +205,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (hint != undefined) {
       if (msg.includes("<br>") == false) {    // If a hint is present
-        addTextToResults(splitter(msg) + "<br><p><i>hint: try " + hint + "</i></p>")
-      } else {
-        addTextToResults(msg + "<br><p><i>hint: try " + hint + "</i></p>");
+        msg = splitter(msg);
       }
+      msg = msg + "<br><p><i>hint: try typing " + hint + ".</i></p>";
     } else {
       if (msg.includes("<br>") == false) {
         if (msg.includes("<pre>") == false) {
-          addTextToResults(splitter(msg));
-          // addTextToResults(msg);
-        } else {
-          addTextToResults(msg);
+          msg = splitter(msg);
         }
-      } else {
-        addTextToResults(msg);
       }
     }
+    addTextToResults(msg);
   }
 
   // Print the data
@@ -325,25 +320,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
       case "python":
       case "python3":
-        message("Python 3+ is my main programming language with my highest knowledge","typing 'r'");
+        message("Python 3+ is my main programming language with my highest knowledge","'r'");
         break;
 
       case "r":
-        message("R is another language that I am quite profound in","typing 'julia'");
+        message("R is another language that I am quite profound in","'julia'");
         break;
 
       case "julia":
-        message("Julia is another language that I am quite profound in","typing 'js'");
+        message("Julia is another language that I am quite profound in","'js'");
         break;
 
       case "js":
       case "javascript":
         message("I have experienced knowledge in JavaScript. Fun fact: this program you are interacting with is written in pure JS",
-                "typing 'python'");
+                "'python'");
         break;
 
       case "swedish":
-        message("Swedish is my mother tounge", "typing 'english'");
+        message("Swedish is my mother tounge", "'english'");
         break;
 
       case "english":
@@ -462,7 +457,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       case "hello":
       case "hi":
-        message("Hello, I am your assistant. I am powered by pure JavaScript and fueled by the joy of coding.");
+        message("Hello, I am your assistant. I am powered by pure JavaScript and fueled by the joy of coding.","about");
         break;
 
       case "hahaha":
@@ -531,8 +526,8 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
 
       default:
-      message("<i>The command <b>" + textInputValue + "</b> was not found.</i>"," type <b>Help</b> to see all commands.");
-      break;
+        message(output(textInputValue)); // get reply from "chatbot"
+        break;
     }
   }
 
