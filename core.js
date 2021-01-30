@@ -9,54 +9,64 @@
 
 
 // Variables and values
-var globalhistory = "";   // Everything entered in the terminal
-var globalpath = "~/"   // The initial path
-var terminalTextLengthLimit = 80;   // The maximum horizontal length
-var timeDelay = 10;   // Time delay of print out
-var oldTypeWriter = true; // If the site should be typed as a typewriter
+var globalhistory = "";   // Everything entered in the terminal, before flush. Governed by 'storageLength' if in typewriter mode
 var storageLength = 3000; // How many characters the terminal will keep in memory
+var globalpath = "~/";   // The initial path
+var terminalTextLengthLimit = 80;   // The maximum horizontal length
+var timeDelay = 2;   // Time delay of print out
+var oldTypeWriter = true; // If the site should be typed as a typewriter
+
+
+
+const bird = "<pre style='background: yellow; -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>"+
+             "               __<br>"+
+             "             <(o )___<br>"+
+             "              ( ._> /<br>"+
+             "               `---'   "+
+             "</pre>";
 const metaInfo = {
-   "rooturl": "https://raw.githubusercontent.com/Irreq/irreq.github.io/main/site/",
-   "name": "Isac",
-   "fullname": "Isac Per Ragnar Bruce",
-   "phone": "(+46) 079 348 9745",
-   "contact": "I'd Like To Hear From You.<br>Hit me up whenever you wan't, <br>I will try to answer any question, big or small.",
-   "mail": "<a href='mailto:irreq@protonmail.com'><u>irreq@protonmail.com</u></a>",
-   "location": "<a href='https://goo.gl/maps/D2MUaJTjyXvk5rzw9'><u><br><br>Thorildsplans gymnasium <br>Drottningholmsvägen 82 <br>112 43 Stockholm</u></a>",
-   "occupation": "Student, Developer & Hobby Scientist",
-   "programming_languages": "Python, Julia, R & JS",
-   "construction": "<pre style='color: yellow;'>                             _<br>"+
-                   "                     /======/                           <br>"+
-                   "            ____    //      \\___,      ,/101010               <br>"+
-                   "             | \\   //          ,:,   ./101010101                  <br>"+
-                   "     |¨¨¨¨¨¨¨|__|_//            ,;:; /10010101101                   <br>"+
-                   "    _L_____________\o            ,;;;/1010101011101                    <br>"+
-                   ".,,.(O_o_o_o_o_o_o_O),,.,.,.,...,.-/101010101010101,,.,., Isac Bruce .,.,,,.,.,</pre>",
-    "bird": "<pre style='background: yellow; -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>"+
-            "               __<br>"+
-            "             <(o )___<br>"+
-            "              ( ._> /<br>"+
-            "               `---'   "+
-            "</pre>",
+  "rooturl": "https://raw.githubusercontent.com/Irreq/irreq.github.io/main/site/",
+  "name": "Isac",
+  "fullname": "Isac Per Ragnar Bruce",
+  "phone": "(+46) 079 348 9745",
+  "contact": "I'd Like To Hear From You.<br>Hit me up whenever you wan't, <br>I will try to answer any question, big or small.",
+  "mail": "<a href='mailto:irreq@protonmail.com'><u>irreq@protonmail.com</u></a>",
+  "location": "<a href='https://goo.gl/maps/D2MUaJTjyXvk5rzw9'><u><br><br>Thorildsplans gymnasium <br>Drottningholmsvägen 82 <br>112 43 Stockholm</u></a>",
+  "occupation": "Student, Developer & Hobby Scientist",
+  "programming_languages": "Python, Julia, R & JS",
+  "construction": "<pre style='color: yellow;'>                             _<br>"+
+                  "                     /======/                           <br>"+
+                  "            ____    //      \\___,      ,/101010               <br>"+
+                  "             | \\   //          ,:,   ./101010101                  <br>"+
+                  "     |¨¨¨¨¨¨¨|__|_//            ,;:; /10010101101                   <br>"+
+                  "    _L_____________\o            ,;;;/1010101011101                    <br>"+
+                  ".,,.(O_o_o_o_o_o_o_O),,.,.,.,...,.-/101010101010101,,.,., Isac Bruce .,.,,,.,.,</pre>",
+
+
+  "landing": "<strong>Welcome to Isac's interactive portfolio!</strong><br><br>   "+
+             "I am your assistant and I will help you find out information about Isac. Even though I am a program, I cannot solve everything (yet)"+
+             ", so please type keywords or really short sentences, so I can assist you!<br><br>"+
+             "The terminal in front of you is known as a 'Command-Line Interface' <i>abbreviated to</i> 'CLI'. "+
+             "A (CLI) processes commands to a computer program in the form of lines of text. - <i>Wikipedia</i><br><br>"+
+             "Unlike the majority of websites, this website can help you find what you are looking for with just a <i>keyboard</i>.<br><br>"+
+             "I can assure you that this terminal is completely harmless as it runs in your browser, so do not fear typing anything. "+
+             "If you are still in doubt, here is a harmless cyber duck:<br>"+bird+
+             "</pre>Good  Luck!<br><br>PS. If the site feels slow, try typing: 'clear' to remove all content. "+
+             "If you prefer a quick response, try typing: 'type' to disable/enable the typewriter effect.<br>",
+
+  "mobile": "<pre style='background: red; -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>WARNING</pre><br>"+
+            "Dear visitor, <br><br>This portfolio was developed to look like a terminal, it is therefore recomended to continue your visit on a computer."+
+            "<br><br>( ._.)<br><br>But please hang on, I am working on a mobile version too, <a href='https://www.github.com/irreq'><u>here</u></a>!<br><br>"+
+            "If you still want to proceed, here is the desktop site:<br><br><br><br>",
 };
 
 // Notify Mobile users
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-  document.getElementById('terminalContentsResult').innerHTML = "<pre style='background: red; -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>WARNING</pre><br>"+
-  "Dear visitor, <br><br>This portfolio was developed to look like a terminal, it is therefore recomended to continue your visit on a computer.<br><br>( ._.)<br><br>But please hang on, I am working on a mobile version too, <a href='https://www.github.com/irreq'><u>here</u></a>!<br><br>If you still want to proceed, here is the desktop site:<br><br><br><br>";
-
+  document.getElementById('terminalContentsResult').innerHTML = metaInfo.mobile;
 }
 
 // "Landing page"
-document.getElementById('terminalContentsResult').innerHTML += "<strong>Welcome to Isac's interactive portfolio!</strong><br><br>   "+
-
-                                                           "I am your assistant and I will help you find out information about Isac. Even though I am a program, I cannot solve everything (yet), so please type keywords or really short sentences, so I can assist you!<br><br>"+
-                                                           "The terminal in front of you is known as a 'Command-Line Interface' <i>abbreviated to</i> 'CLI'. "+
-                                                           "A (CLI) processes commands to a computer program in the form of lines of text. - <i>Wikipedia</i><br><br>"+
-                                                           "Unlike the majority of websites, this website can help you find what you are looking for with just a <i>keyboard</i>.<br><br>"+
-                                                           "I can assure you that this terminal is completely harmless as it runs in your browser, so do not fear typing anything. If you are still in doubt, here is a harmless cyber duck:<br>"+
-                                                           metaInfo["bird"]+
-                                                           "</pre>Good  Luck!<br><br>PS. If the site feels slow, try typing: 'clear' to remove all content. If you prefer a quick response, try typing: 'type' to disable/enable the typewriter effect.<br>";
+document.getElementById('terminalContentsResult').innerHTML += metaInfo.landing;
 
 
 
@@ -87,8 +97,11 @@ function checkWord(textInputValue, textInputValueLowerCase) {
     message("<i>The URL " + "<b>" + textInputValue.substr(5) + "</b>" + " should be opened now.</i>");
   } else if (textInputValueLowerCase.substr(0,3) == "cd ") {
     changeDir(textInputValueLowerCase.substr(3) + " ");
+  } else if (textInputValueLowerCase.substr(0,6) == "speed "){
+    timeDelay = parseFloat(textInputValue.substr(6));
+    message("Typing speed is now set to: "+textInputValue.substr(6)+"ms!");
   } else if (textInputValueLowerCase.substr(0,5) == "find ") {
-    getTextData(metaInfo["rooturl"]+textInputValue.substr(5)+".txt")
+    getTextData(metaInfo.rooturl+textInputValue.substr(5)+".txt")
   } else if (textInputValueLowerCase.substr(0,7) == "search ") {
     getTextData(textInputValue.substr(7))
   } else if (textInputValueLowerCase.substr(0,5) == "echo ") {
@@ -103,7 +116,7 @@ function checkWord(textInputValue, textInputValueLowerCase) {
     openLinkInNewWindow('https://wikipedia.org/w/index.php?search=' + textInputValueLowerCase.substr(5));
     message("<i>I've searched on Wikipedia for " + "<b>" + textInputValue.substr(5) + "</b>" + " it should be opened now.</i>");
   } else {
-    getTextData(metaInfo["rooturl"]+textInputValue+".txt", textReplies);    // Last arguments is what happens if a 404 error occurs
+    getTextData(metaInfo.rooturl+textInputValue+".txt", textReplies);    // Last arguments is what happens if a 404 error occurs
   }
 };
 
@@ -217,36 +230,6 @@ function getExternalJSON(query) {
   });
 };
 
-// Split text
-function splitter(textData) {
-
-  var wholeWordArray = textData.split(" ")
-  var result = []
-  var indexes = [0,];
-  var localLength = 0;
-  var localIndex = 0;
-
-  var i;
-  for (i in wholeWordArray) {
-      if (localLength >= terminalTextLengthLimit) {
-          indexes.push(indexes[indexes.length - 1]+localIndex);   // append the length to indexes
-          localLength = 0;    // reset values for next loop
-          localIndex = 0;
-      } else {    // Just the iteration process
-        localLength += wholeWordArray[i].length + 1;
-        localIndex += 1;
-      }
-  }
-
-  indexes.push(wholeWordArray.length)
-
-  var k;
-  for (var k = 0; k < indexes.length; k += 1) {   // Will put the text together neatly into an array
-      result.push(wholeWordArray.slice(indexes[k],indexes[k+1]).join(" "))
-  }
-  return "<br>" + result.join("<br>");
-}
-
 // Response
 function message(textData, hint) {
 
@@ -262,13 +245,11 @@ function message(textData, hint) {
 
     var localTextPos = 0;   // Initialise text position
 
-    this.typewriter = function() {    // The typewriter function
+    var destination = document.getElementById('terminalContentsResult');   // Writes to 'terminalContentsResult'
 
-      var destination = document.getElementById('terminalContentsResult');   // Writes to 'terminalContentsResult'
+    globalhistory = destination.innerHTML.slice(-storageLength);
 
-      if (localTextPos == 0) {    // Previous data is stored on first iteration
-        globalhistory = destination.innerHTML.slice(-storageLength);
-      }
+    this.typewriter = function() {    // The typewriter self loop function
 
       globalhistory += textData.substring(localTextPos-1,localTextPos); // Getting one element at the position and appending it to the entirety
       destination.innerHTML = globalhistory; // Writes to the html
@@ -276,15 +257,16 @@ function message(textData, hint) {
       scrollToBottomOfResults(); // Scroll to the bottom of the results
 
       if (localTextPos++ >= textData.length) {
-        return;
+        return;  // Killswitch
       }
-      setTimeout("typewriter()", Math.random() * timeDelay); // I'm guessing the function overflows and dies but that is no issue
+      setTimeout("typewriter()", Math.random() * timeDelay);
     }
     typewriter(textData);    // Initialise typewriter function
   } else {
     document.getElementById('terminalContentsResult').innerHTML += textData;
     scrollToBottomOfResults();
   }
+
 }
 
 // Having a specific text reply This part is extremely long as cases are being used
@@ -302,11 +284,11 @@ function textReplies() {
     // replies
 
     case "details":
-      message("Here are my details:<br><br>Full name: "+metaInfo["fullname"]+"<br>Occupation: "+metaInfo["occupation"]+"<br>");
+      message("Here are my details:<br><br>Full name: "+metaInfo.fullname+"<br>Occupation: "+metaInfo.occupation+"<br>");
       break;
 
     case "name":
-      message("hello my name is "+metaInfo["name"] + " <p><i>hint: try 'fullname'</i></p>");
+      message("hello my name is "+metaInfo.name + " <p><i>hint: try 'fullname'</i></p>");
       break;
 
     case "cls":
@@ -333,7 +315,7 @@ function textReplies() {
       break;
 
     case "fullname":
-      message("My full name is " + metaInfo["fullname"],"details");
+      message("My full name is " + metaInfo.fullname,"details");
       break;
 
 
@@ -379,12 +361,12 @@ function textReplies() {
 
     case "consult":
     case "consulting":
-      message("I can provide general help with finding the right solutions to meet your project's deadline in due time.<br>Contact me at "+metaInfo["mail"]);
+      message("I can provide general help with finding the right solutions to meet your project's deadline in due time.<br>Contact me at "+metaInfo.mail);
       break;
 
     case "contracting":
     case "contract":
-      message("I write/maintain code to fit your requirements and specifications.<br>Contact me at "+metaInfo["mail"]);
+      message("I write/maintain code to fit your requirements and specifications.<br>Contact me at "+metaInfo.mail);
       break;
 
     case "teach":
@@ -393,7 +375,7 @@ function textReplies() {
     case "coaching":
     case "tutor":
     case "tutoring":
-      message("Learn how to solve problems using code. You choose what to cover during Skype or Discord sessions ranging from fundamental syntax to Machine Learning.<br>Contact me at "+metaInfo["mail"]);
+      message("Learn how to solve problems using code. You choose what to cover during Skype or Discord sessions ranging from fundamental syntax to Machine Learning.<br>Contact me at "+metaInfo.mail);
       break;
 
     case "parallel":
@@ -401,7 +383,7 @@ function textReplies() {
     case "beowulf":
     case "cluster":
     case "clustering":
-      message("Try parallel computing for educational purposes on a PoC Linux Beowulf Cluster on limited hardware.<br>Contact me at "+metaInfo["mail"]);
+      message("Try parallel computing for educational purposes on a PoC Linux Beowulf Cluster on limited hardware.<br>Contact me at "+metaInfo.mail);
       break;
 
 
@@ -430,17 +412,17 @@ function textReplies() {
     // Contact info
     case "number":
     case "phone":
-      message("You can reach me on mobile too: "+metaInfo["phone"]);
+      message("You can reach me on mobile too: "+metaInfo.phone);
       break;
 
     case "email":
     case "mail":
-      message("You can easely reach me on my email: " + metaInfo["mail"]);
+      message("You can easely reach me on my email: " + metaInfo.mail);
       break;
 
     case "location":
     case "address":
-      message("You can find me at: "+metaInfo["location"]);
+      message("You can find me at: "+metaInfo.location);
       break;
 
     case "linkedin":
@@ -473,7 +455,7 @@ function textReplies() {
 
     case "founder":
     case "isac":
-      message("Isac is founder of this portfolio and he is a "+metaInfo["occupation"].toLowerCase(),
+      message("Isac is founder of this portfolio and he is a "+metaInfo.occupation.toLowerCase(),
               "Have you tried typing 'site'?");
       break;
 
@@ -494,7 +476,7 @@ function textReplies() {
     case "goodbye":
     case "exit":
     case "stop":
-      message("Goodbye for now, I hope you've gained some insight into "+metaInfo["name"]+"'s way of life.");
+      message("Goodbye for now, I hope you've gained some insight into "+metaInfo.name+"'s way of life.");
       break;
 
     case "nice":
@@ -515,7 +497,8 @@ function textReplies() {
 
     case "picture":
     case "speed":
-      document.getElementById('terminalContentsResult').innerHTML += metaInfo["construction"];
+      timeDelay =
+      document.getElementById('terminalContentsResult').innerHTML += metaInfo.construction;
       message("This function is still under construction, thank you for your interest. In the meantime, have a look at 'Echo'.");
       break;
 
