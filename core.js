@@ -6,7 +6,7 @@
 // [3] Small chatbot.
 //
 // See individual comments for further documentation
-
+// Main functions will be in this file
 
 // Variables and values
 var globalhistory = "";   // Everything entered in the terminal, before flush. Governed by 'storageLength' if in typewriter mode
