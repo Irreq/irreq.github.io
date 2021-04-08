@@ -1,3 +1,24 @@
+:root {
+    /* --background: rgba(170, 90, 0, 1); */
+    --background__: rgba(12, 34, 56, 1);
+    --h1-color: rgba(220, 220, 220, 1);
+    --shadow: rgba(0, 0, 0, 0.29);
+    /* --font: 'Roboto Mono', monospace; */
+    --font: "WebPlus HP 100LX 6x8", monospace;
+    --fog-white: rgba(255,255,255,1.0);
+    --font-size: 16px;
+}
+
+img {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  /* box-shadow: -2vh 2vh 0 var(--shadow); */
+  box-shadow: var(--mouseX) var(--mouseY) var(--shadow);
+}
+
 .inline {
   display: inline;
 }
@@ -321,7 +342,7 @@ body .h1 {
   display: block;
   margin-top: 3rem;
   margin-bottom: 1rem;
-  color: #2bbc8a;
+  color: var(--h1-color);
   letter-spacing: 0.01em;
   font-weight: 700;
   font-style: normal;
@@ -455,7 +476,8 @@ body {
   margin: 0;
   height: 100%;
   /* background-color: #1d1f21; */
-  background-color: #191a1e;
+  /* background-color: #191a1e; */
+  background-color: var(--background__);
   color: #c9cacc;
   font-display: swap;
   font-weight: 400;

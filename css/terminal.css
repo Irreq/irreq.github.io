@@ -12,6 +12,8 @@
     --font: "WebPlus HP 100LX 6x8", monospace;
     --fog-white: rgba(255,255,255,1.0);
     --font-size: 16px;
+    --mouseX: 50%;
+    --mouseY: 50%;
 }
 
 
@@ -52,7 +54,11 @@ html {
   position: auto;
   font-family: var(--font);
   opacity: 0;
-  box-shadow: -2vh 2vh 0 var(--shadow);
+
+  box-shadow: var(--mouseX) var(--mouseY) var(--shadow);
+  /* box-shadow: -2vh 2vh 0 var(--shadow); */
+  /* margin-left: var(--mouseX);
+  margin-down: var(--mouseY); */
   animation:
     slideDownAnimation 1s ease-in-out 1s forwards,
     fadeInAnimation 0.8s ease-in-out 1s forwards;
