@@ -9,6 +9,10 @@
     --font-size: 16px;
 }
 
+.hint {
+  color: #123456;
+}
+
 img {
   display: block;
   margin: auto;
@@ -482,7 +486,8 @@ body {
   font-display: swap;
   font-weight: 400;
   font-size: 14px;
-  font-family: "Menlo", "Meslo LG", monospace;
+  /* font-family: "Menlo", "Meslo LG", monospace; */
+  font-family: var(--font);
   line-height: 1.725;
   text-rendering: geometricPrecision;
   flex: 1;
@@ -1578,7 +1583,8 @@ pre {
   border: 1px dotted #666;
   border-radius: 4px;
   font-size: 13px;
-  font-family: "Menlo", "Meslo LG", monospace;
+  /* font-family: "Menlo", "Meslo LG", monospace; */
+  font-family: var(--font);
   line-height: 22px;
   -webkit-border-radius: 4px;
 }
@@ -1599,7 +1605,8 @@ code {
   padding: 10px 15px;
   border-radius: 4px;
   background: #212326;
-  font-family: "Menlo", "Meslo LG", monospace;
+  /* font-family: "Menlo", "Meslo LG", monospace; */
+  font-family: var(--font);
   -webkit-border-radius: 4px;
 }
 .highlight figcaption {

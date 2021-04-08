@@ -1,3 +1,21 @@
+$(function() {
+  // copy-btn HTML
+  var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+  btn += '<i class="far fa-clone"></i>';
+  btn += '</span>';
+  // mount it!
+  $(".highlight table").before(btn);
+  var clip = new ClipboardJS('.btn-copy', {
+    text: function(trigger) {
+      return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+    }
+  });
+  clip.on('success', function(e) {
+    e.trigger.setAttribute('aria-label', "Copied!");
+    e.clearSelection();
+  })
+})
+
 /**
  * Sets up Justified Gallery.
  */
@@ -21,7 +39,7 @@ $(document).ready(function() {
 
 
   /**
-   * Controls the different versions of  the menu in blog post articles 
+   * Controls the different versions of  the menu in blog post articles
    * for Desktop, tablet and mobile.
    */
   if ($(".post").length) {
@@ -100,7 +118,7 @@ $(document).ready(function() {
         $("#toc-footer").hide();
         $("#share-footer").hide();
 
-        // show a "navigation" icon when close to the top of the page, 
+        // show a "navigation" icon when close to the top of the page,
         // otherwise show a "scroll to the top" icon
         if (topDistance < 50) {
           $("#actions-footer > #top").hide();

@@ -18,16 +18,17 @@ const metaInfo = {
   "name": "Irreq",
   "mail": "<a href='mailto:irreq@protonmail.com'><u>irreq@protonmail.com</u></a>",
   "occupation": "Student, Developer & Hobby Scientist",
-  "landing": "Oh a mildly interesting terminal on my screen...<br><br>(°‿°)<br><br>"+
-             // "<strong>Welcome to Isac's interactive portfolio!</strong><br><br>   "+
-             "I am your assistant and I will help you find out information about Isac. Even though I am a program, I cannot solve everything (yet)"+
-             ", so please type keywords or really short sentences, so I can assist you!<br><br>"+
-             "The terminal in front of you is known as a 'Command-Line Interface' and process your commands in the form of lines of text. "+
+  "landing": "Oh a mildly interesting terminal on my screen... (°‿°)<br><br>"+
+             "Hey!<br><br>"+
+             "The terminal in front of you is known as a 'Command-Line Interface' and it processes your commands in the form of lines of text. "+
              "Unlike the majority of websites, this one can help you find what you are looking for with just a <i>keyboard</i>.<br><br>"+
-             "I can assure you that this terminal is completely harmless and it runs in your browser, so do not fear typing. "+
-             "If you are still in doubt, here is a harmless cyber duck:<br>"+bird+
-             "</pre>Good  Luck!<br><br>PS. If the site feels slow, try typing: 'clear' to remove all content. "+
-             "If you prefer a quick response, try typing: 'type' to disable/enable the typewriter effect.<br>",
+             "I will guide you upon your visit. Even though I am a program, I cannot interpret everything (yet)"+
+             ", so please type keywords or really short sentences, so I can assist you!<br><br>"+
+
+             "Do not fear typing, this terminal is completely harmless and it runs in your browser. "+
+             "Here is a harmless cyber duck to convince you more:<br>"+bird+
+             "</pre>Good  Luck!<br><br>PS. If things slow down, try typing: 'clear' to remove all content. "+
+             "If you prefer instant response, try typing: 'type' to toggle the typewriter effect.<br>",
 
   "mobile_": "<pre style='border: 0; font-family: var(--font); background: red; -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>WARNING</pre><br>"+
             "Dear visitor, <br><br>This portfolio was developed to look like a terminal, it is therefore recomended to continue your visit on a computer."+
@@ -89,12 +90,12 @@ function parseQuery(textInputValue) {
   // print user query
   document.getElementById('terminalContentsResult').innerHTML += "<br><p class='userEnteredText'>"+globalpath+"> " + textInputValue + "</p>";
 
-  if (textInputValueLowerCase.substr(0,2) == "hi ") {
-    printTerminal("Hi");
-  } else if (textInputValueLowerCase.substr(0,3) == "ok ") {
-    printTerminal("Ok");
+  if (textInputValueLowerCase.substr(0,5) == "echo ") {
+    printTerminal(textInputValue.substr(5))
   } else {
-    printTerminal(chatBot(textInputValue));
+    // printTerminal(chatBot(textInputValue));
+    // printTerminal(textReplies(textInputValue));
+    textReplies(textInputValue)
   }
 };
 
@@ -109,8 +110,10 @@ function clearInput(){
   document.getElementById('terminalTextInput').value = "";
 }
 
-
-function printTerminal(textData) {
+function printTerminal(textData, hint) {
+  if (hint != undefined) {
+    textData += "<br><br><span class='hint'>Hint, try typing: </span>"+hint
+  }
   if (textData.substring(0,2) != "<p") { // Pure string needs to have padding if no padding is present
     textData = "<p>" + textData + "</p>";
   }

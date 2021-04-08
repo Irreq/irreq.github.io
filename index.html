@@ -34,7 +34,7 @@
           <h1>Hey</h1>
         </div>
         <div class="title">
-          <h4>So yeah, welcome to my site<br>I'm Irreq btw</h4>
+          <h4>Welcome to my site<br>I'm Irreq</h4>
         </div>
       </a>
     </header>
@@ -51,13 +51,14 @@
   </div>
   <script type="text/javascript" src="js/terminal-backend.js"></script>
   <script type="text/javascript" src="js/chatbot.js"></script>
+  <script type="text/javascript" src="js/programs.js"></script>
 </section>
 <section id="about">
   <!-- <p>Nothing in about</p> -->
   <div class="">
     <h1>About Me</h1>
     <p>I'm Irreq. I am an AI enthusiast with a peculiar inclination for learning and problem-solving. Whenever I am not working on my computer,
-    you will find me running or riding Mountainbike in the local forests.<br><br>Picture is unrelated.</p>
+    you will find me running or riding Mountainbike in the forest.<br><br>Picture is unrelated.</p>
     <br>
   </div>
   <p><img src="lib/images/ganman2.jpeg" alt="definately not me"></p>
@@ -70,7 +71,7 @@
 <section id="timeline">
   <div class="">
     <h1>Timeline</h1>
-    <!-- <p>Well hello there, I'm Irreq. Picture below is unrelated.</p> -->
+    <p>Just some links.</p>
   </div>
   <ul class="post-list">
     <li class="post-item">
@@ -132,26 +133,6 @@
 <!-- clipboard -->
 <script src="js/main.js"></script>
 <script src="lib/clipboard/clipboard.min.js"></script>
-
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="far fa-clone"></i>';
-    btn += '</span>';
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
-    });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
 
 <!-- <script src="js/core.js"></script> -->
 </body>
