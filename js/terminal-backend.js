@@ -6,7 +6,7 @@ var terminalTextLengthLimit = 80;   // The maximum horizontal length
 var timeDelay = 2;   // Time delay of print out
 var oldTypeWriter = true; // If the site should be typed as a typewriter
 
-const bird = "<pre style='border: 0; font-family: var(--font); background: yellow; -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>"+
+const duck = "<pre style='border: 0; font-family: var(--font); background: yellow; -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>"+
              "               __<br>"+
              "             <(o )___<br>"+
              "              ( ._> /<br>"+
@@ -14,19 +14,25 @@ const bird = "<pre style='border: 0; font-family: var(--font); background: yello
              "</pre>";
 
 const metaInfo = {
-  "rooturl": "https://raw.githubusercontent.com/Irreq/irreq.github.io/main/site/",
+  "rooturl": "https://raw.githubusercontent.com/Irreq/irreq.github.io/main/",
   "name": "Irreq",
   "mail": "<a href='mailto:irreq@protonmail.com'><u>irreq@protonmail.com</u></a>",
   "occupation": "Student, Developer & Hobby Scientist",
+  "construction": "<pre style='color: yellow; border: 0; font-family: var(--font);'>                              _<br>"+
+                  "                     /======/                           <br>"+
+                  "            ____    //      \\___,      ,/101010         <br>"+
+                  "             | \\   //          ,:,   ./101010101        <br>"+
+                  "     |¨¨¨¨¨¨¨|__|_//            ,;:; /10010101101        <br>"+
+                  "    _L_____________\o            ,;;;/1010101011101      <br>"+
+                  ".,,.(O_o_o_o_o_o_o_O),,.,.,.,...,.-/101010101010101,,.,.</pre>",
   "landing": "Oh a mildly interesting terminal on my screen... (°‿°)<br><br>"+
              "Hey!<br><br>"+
              "The terminal in front of you is known as a 'Command-Line Interface' and it processes your commands in the form of lines of text. "+
              "Unlike the majority of websites, this one can help you find what you are looking for with just a <i>keyboard</i>.<br><br>"+
              "I will guide you upon your visit. Even though I am a program, I cannot interpret everything (yet)"+
              ", so please type keywords or really short sentences, so I can assist you!<br><br>"+
-
              "Do not fear typing, this terminal is completely harmless and it runs in your browser. "+
-             "Here is a harmless cyber duck to convince you more:<br>"+bird+
+             "Here is a harmless cyber duck to convince you more:<br>"+duck+
              "</pre>Good  Luck!<br><br>PS. If things slow down, try typing: 'clear' to remove all content. "+
              "If you prefer instant response, try typing: 'type' to toggle the typewriter effect.<br>",
 
@@ -35,16 +41,12 @@ const metaInfo = {
             "<br><br>( ._.)<br><br>But please hang on, I am working on a mobile version too, <a href='https://www.github.com/irreq'><u>here</u></a>!<br><br>"+
             "If you still want to proceed, here is the desktop site:<br><br><br><br>",
   "mobile": "<p style='color: #ff0000;'>* * * WARNING * * *<br><br>"+
-                                       // "You should try this<br>"+
                                        "Dear visitor,<br><br>"+
                                        "To get the optimum<br>"+
                                        "experience, please<br>"+
                                        "visit on a desktop<br>"+
                                        "or a laptop<br><br>"+
                                        "/Irreq<br><br>"+
-                                       // "site on a desktop or<br>"+
-                                       // "a laptop for a more<br>"+
-                                       // "immersive experience<br><br>"+
                                        "* * * * * * * * * *<br><br></p>",
 }
 
@@ -57,15 +59,13 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phon
   });
 } else {
   document.getElementById('terminalContentsResult').innerHTML = metaInfo.mobile;
-  // document.getElementById('terminalContentsResult').innerHTML = "<p style='color: #ff0000;'>* * * WARNING * * *<br><br>You should try this<br>site on a desktop or<br>a laptop for a more<br>immersive experience<br><br>* * * * * * * * * *<br><br></p>";
 }
 
 
 // "Landing page"
 document.getElementById('terminalContentsResult').innerHTML += metaInfo.landing;
-// // "Landing page"
-// document.getElementById('terminalContentsResult').innerHTML += "Oh a mildly interesting terminal on my screen...<br><br>(°‿°)<br><br>";
 
+// Intitialize CLI
 document.addEventListener('DOMContentLoaded', function() {
   // Get the focus to the text input to enter a word right away.
   document.getElementById('terminalTextInput').focus();
@@ -90,11 +90,10 @@ function parseQuery(textInputValue) {
   // print user query
   document.getElementById('terminalContentsResult').innerHTML += "<br><p class='userEnteredText'>"+globalpath+"> " + textInputValue + "</p>";
 
+  // Quick commands
   if (textInputValueLowerCase.substr(0,5) == "echo ") {
     printTerminal(textInputValue.substr(5))
   } else {
-    // printTerminal(chatBot(textInputValue));
-    // printTerminal(textReplies(textInputValue));
     textReplies(textInputValue)
   }
 };

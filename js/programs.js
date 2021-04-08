@@ -1,3 +1,24 @@
+// Retrieve data from remote file
+function getTextData(query, ifError) {
+  fetch(metaInfo.rooturl+"data/site/"+query+".txt")
+    .then(function(response) {
+      response.text().then(function(text) {
+        if (text.includes("404: Not Found")) {
+          if (ifError != undefined) {
+            ifError();
+          } else {
+            printTerminal("Sorry, I was unable to find '"+query+"'");
+          }
+        } else {
+          printTerminal("<pre>"+text+"</pre>");
+        }
+      });
+    });
+}
+
+
+
+
 // Having a specific text reply This part is extremely long as cases are being used
 function textReplies(textInputValueLowerCase) {
   switch(textInputValueLowerCase){
@@ -7,18 +28,17 @@ function textReplies(textInputValueLowerCase) {
       printTerminal("This might be surprising but length property of an array is not only used to get number of array elements but it's also writable and can be used to set array's length MDN link. This will mutate the array. If current array is not needed anymore and you don't care about immutability or don't want to allocate memory i.e. for a game the fastest way is.")
       break;
 
-    case "bird":
-      printTerminal(metaInfo["bird"]);
+    case "duck":
+      printTerminal(metaInfo["duck"]);
       break;
 
-    // Replies
-
-    case "details":
-      printTerminal("Here are my details:<br><br>Full name: "+metaInfo.fullname+"<br>Occupation: "+metaInfo.occupation+"<br>");
+    // Unix-commands
+    case "time":
+      getTimeAndDate("time");
       break;
 
-    case "name":
-      printTerminal("hello my name is "+metaInfo.name + " <p><i>hint: try 'fullname'</i></p>");
+    case "date":
+      getTimeAndDate("date");
       break;
 
     case "cls":
@@ -26,6 +46,16 @@ function textReplies(textInputValueLowerCase) {
     case "remove":
     case "clear":
       document.getElementById('terminalContentsResult').innerHTML = "";
+      break;
+
+    case "pwd":
+    case "ls":
+      printTerminal(globalpath);
+      break;
+
+    case "exit":
+    case "stop":
+      printTerminal("Goodbye for now, I hope you've gained some insight into "+metaInfo.name+"'s way of life.");
       break;
 
     case "type":
@@ -39,18 +69,33 @@ function textReplies(textInputValueLowerCase) {
       break;
 
 
-    case "pwd":
-    case "ls":
-      printTerminal(globalpath)
+
+    // Replies
+    case "about":
+    case "ai":
+    case "contact":
+    case "credits":
+    case "education":
+    case "help":
+    case "languages":
+    case "occupation":
+    case "programming":
+    case "social":
+    case "test":
+    case "work":
+      getTextData(textInputValueLowerCase);
       break;
 
-    case "fullname":
-      printTerminal("My full name is " + metaInfo.fullname,"details");
+    case "details":
+      printTerminal("Here are my details:<br><br>Full name: "+metaInfo.name+"<br>Occupation: "+metaInfo.occupation+"<br>");
+      break;
+
+    case "name":
+      printTerminal("hello my name is "+metaInfo.name, "details");
       break;
 
 
     // Languages
-
     case "python":
     case "python3":
       printTerminal("Python 3+ is my main programming language with my highest knowledge",
@@ -79,11 +124,13 @@ function textReplies(textInputValueLowerCase) {
       break;
 
     case "english":
-      printTerminal("I have experienced knowledge in English","typing 'german'");
+      printTerminal("I have experienced knowledge in English",
+      "german");
       break;
 
     case "german":
-      printTerminal("I have workable knowledge in German","typing 'swedish'");
+      printTerminal("I have workable knowledge in German",
+      "swedish");
       break;
 
 
@@ -148,7 +195,8 @@ function textReplies(textInputValueLowerCase) {
 
     case "location":
     case "address":
-      printTerminal("You can find me at: "+metaInfo.location);
+      printTerminal("You can find me at: "+metaInfo.location,
+      "mail");
       break;
 
     case "github":
@@ -178,38 +226,17 @@ function textReplies(textInputValueLowerCase) {
     case "founder":
     case "irreq":
       printTerminal("Irreq is founder of this portfolio and he is a "+metaInfo.occupation.toLowerCase(),
-              "Have you tried typing 'site'?");
+      "site");
       break;
 
     case "who":
     case "who are you?":
-    case "who are you":
-      printTerminal("I'm a personal assistant trying to help you find stuff on this site.",
-              "Have you tried typing 'Irreq' or 'info' or even 'contact'?"
-              )
-      break;
-
-    case "hello":
-    case "hi":
-      printTerminal("Hello, I am your assistant. I am powered by pure JavaScript and fueled by the joy of coding.","about");
-      break;
-
-    case "bye":
-    case "goodbye":
-    case "exit":
-    case "stop":
-      printTerminal("Goodbye for now, I hope you've gained some insight into "+metaInfo.name+"'s way of life.");
-      break;
-
-    case "nice":
-    case "ok":
-    case "good":
-    case "cool":
-      printTerminal("Good!");
+      printTerminal("Hello, I am your assistant trying to help you find stuff on this site. I am powered by pure JavaScript and fueled by the joy of coding.",
+      "about");
       break;
 
 
-    // Help replies
+    // Insuffient query
 
     case "repeat":
     case "say":
@@ -219,9 +246,8 @@ function textReplies(textInputValueLowerCase) {
 
     case "picture":
     case "speed":
-      // timeDelay =
       document.getElementById('terminalContentsResult').innerHTML += metaInfo.construction;
-      printTerminal("This function is still under construction, thank you for your interest. In the meantime, have a look at 'Echo'.");
+      printTerminal("This function is still under construction, thank you for your interest. In the meantime, have a look at: 'echo'.");
       break;
 
     case "cd":
@@ -245,18 +271,9 @@ function textReplies(textInputValueLowerCase) {
         printTerminal("Type wiki + something to search for.");
       break;
 
-    // Functions
-
-    // case "time":
-    //   getTimeAndDate("time");
-    //   break;
-    //
-    // case "date":
-    //   getTimeAndDate("date");
-    //   break;
-
+    // get reply from "chatbot"
     default:
-      printTerminal(chatBot(textInputValue)); // get reply from "chatbot"
+      printTerminal(chatBot(textInputValue));
       break;
   }
 }

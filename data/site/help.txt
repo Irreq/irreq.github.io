@@ -2,11 +2,11 @@ Here are some neat functions to help you find what you are looking for:
 
 -  'Projects'   - Dynamically list projects.
 -    'Work'     - View services.
--    'About'    - Display information about Isac.
--   'Social'    - Where you can reach or look at Isac's work.
+-    'About'    - Display information about Irreq.
+-   'Social'    - Where you can reach or look at Irreq's work.
 - 'Programming' - View the programming languages.
--  'Languages'  - View information about Isac's lingual skills.
--  'Education'  - View information about Isac's education.
+-  'Languages'  - View information about Irreq's lingual skills.
+-  'Education'  - View information about Irreq's education.
 -    'Time'     - Display the current time.
 -    'Date'     - Display the current date.
 -   'Credits'   - The boring credits...
