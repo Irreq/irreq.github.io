@@ -22,7 +22,7 @@ const prompts = [
   // [10] bad
   ["bad", "bored", "tired", "annoyed", "annoying", "irritated", "i am fed up"],
   // [11] help
-  ["help me", "tell me story", "tell me joke"],
+  ["help me", "idk", "i dont understand", "i don't understand", "tell me about"],
   // [12] confirmation
   ["ah", "yes", "ok", "okay", "nice"],
   // [13] bye
@@ -60,15 +60,15 @@ const replies = [
   // [6] creator
   ["The one true God, JavaScript"],
   // [7] name
-  ["I am nameless, but Isac is not.", "I don't have a name, but Isac has.", "Do you have a name for me?", "Sorry I don't have a name yet"],
+  ["I am nameless, but Irreq is not.", "I don't have a name, but Irreq has.", "Do you have a name for me?", "Sorry I don't have a name yet"],
   // [8] affection
   ["I love you too", "Me too", "You are sweet!"],
   // [9] good
-  ["Have you ever felt bad?", "Glad to hear it"],
+  ["Have you ever felt bad?", "Glad to hear it", "Nice!", "That's really good!"],
   // [10] bad
   ["Why?", "Why? You shouldn't!", "Try watching TV"],
   // [11] help
-  ["What about?", "Once upon a time...", "Maybe try <u>this</u>"],
+  ["What about?", "I'll try my best: ", "Maybe try <u>this</u>", "Lets see what I can do", "Hmm <u>this</u> might help"],
   // [12] confirmation
   ["Tell me a story", "Tell me a joke", "Tell me about yourself", "What have you been up to all these years?", "How long has it been?", "What are you most passionate about?", "What do you like to do?", "What’s the best thing that happened to you today?", "What are you most excited about right now?", "What are you working on?", "What do you do for fun?", "What’s something you’re really into right now?", "What’s the most interesting thing that’s happened to you lately?", "What was the best part of your week/weekend?", "What did you want to be when you grew up?", "What are you looking forward to right now?", "What’s the nicest thing anyone’s ever said about you?", "What habit or improvement are you working on?", "What cheers you up?", "What’s your favorite word?", "What cause are you passionate about?", "What’s on your mind lately?", "What personal habit are you proudest of?", "How do you spend your days?", "What problem do you wish you could solve?", "What’s the most interesting thing you’ve learned recently?", "What’s your favorite emoji?", "Whom in the world would you most like to share a meal with?"
 ],
@@ -77,13 +77,13 @@ const replies = [
   // [14] what should...
   ["Hamburgers!", "Pizza!", "How about vegetarian?"],
   // [15] short stuff
-  ["Bro!"],
+  ["Bro!", "Wassup broo!!!"],
   // [16] questions
   ["Great question", "Yeah something along those lines", "Please elaborate on that", "WOW I haven't thought about that before"],
   // [17] no
   ["That's ok","I understand","What do you want to talk about?", "Ok"],
   // [18] Empty
-  ["Please say something :)", "Ok I cannot really help you with an: [Enter]"],
+  ["Please say something :)", "Ok I cannot really help you with that", ";-;"],
   // [19] funny
   ["Lmao","Hehe","Haha!","Good one!", "*literally laughing*", "What do you call 26 letters that went for a swim? Alphawetical.", "What’s the name of a very polite, European body of water? Merci.", "Why was the color green notoriously single? It was always so jaded.", "I used to hate facial hair, but then it grew on me.", "I want to make a brief joke, but it’s a little cheesy.", "Why did the coach go to the bank? To get his quarterback.", "How do celebrities stay cool? They have many fans.", "Sundays are always a little sad, but the day before is a sadder day.", "5/4 of people admit they’re bad at fractions.", "I was going to tell a time-traveling joke, but you guys didn’t like it.", "Shouldn’t the “roof” of your mouth actually be called the ceiling?", "Stop looking for the perfect match…use a lighter.", "I told my doctor I heard buzzing, but he said it’s just a bug going around.", "Want to hear a joke about construction? I’m still working on it.", "If a child refuses to nap, are they guilty of resisting a rest?", "I know a lot of jokes about retired people, but none of them work.", "Why are spiders so smart? They can find everything on the web.", "RIP boiled water—you will be mist.", "What has one head, one foot, and four legs? A bed.", "Sore throats are a pain in the neck.", "What does a house wear? Address.", "Why did the scarecrow win an award? He was out standing in his field.", "What’s red and smells like blue paint? Red paint.", "I didn’t get a haircut, I got them all cut.", "Why couldn’t the bicycle stand up by itself? It was two-tired.", "I’m so good at sleeping, I can do it with my eyes closed.", "People are usually shocked that I have a Police record. But I love their greatest hits!", "How do you weigh a millennial? In Instagrams.", "The wedding was so beautiful, even the cake was in tiers.", "Two guys walked into a bar. The third guy ducked.", "Did you hear about the kidnapping at school? It’s fine, he woke up.", "How can you tell it’s a dogwood tree? By the bark.", "When does a joke become a “dad joke?” When it becomes apparent."]
 ]
