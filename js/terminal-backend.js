@@ -25,16 +25,15 @@ const metaInfo = {
                   "     |¨¨¨¨¨¨¨|__|_//            ,;:; /10010101101        <br>"+
                   "    _L_____________\o            ,;;;/1010101011101      <br>"+
                   ".,,.(O_o_o_o_o_o_o_O),,.,.,.,...,.-/101010101010101,,.,.</pre>",
-  "landing": "Oh a mildly interesting terminal on my screen... (°‿°)<br><br>"+
-             "Hey!<br><br>"+
+  "landing": "Oh a mildly interesting terminal... (°‿°)<br><br>"+
+             //"Hey!<br><br>"+
              "The terminal in front of you is known as a 'Command-Line Interface' and it processes your commands in the form of lines of text. "+
-             "Unlike the majority of websites, this one can help you find what you are looking for with just a <i>keyboard</i>.<br><br>"+
+             "Unlike the majority of websites, this one can be navigated with just a <i>keyboard</i>.<br><br>"+
+             "You have to take my word for this, but the terminal is harmless and won't leave your device "+'"hacked". '+
+             "Here is a harmless cyber duck for further comfort:<br>"+duck+
              "I will guide you upon your visit. Even though I am a program, I cannot interpret everything (yet)"+
-             ", so please type keywords or really short sentences, so I can assist you!<br><br>"+
-             "Do not fear typing, this terminal is completely harmless and it runs in your browser. "+
-             "Here is a harmless cyber duck to convince you more:<br>"+duck+
-             "</pre>Good  Luck!<br><br>PS. If things slow down, try typing: 'clear' to remove all content. "+
-             "If you prefer instant response, try typing: 'type' to toggle the typewriter effect.<br>",
+             ", so please be patient and type keywords so I can help!<br><br>"+
+             "</pre>Good  Luck!<br>",
 
   "mobile_": "<pre style='border: 0; font-family: var(--font); background: red; -webkit-background-clip: text; -webkit-text-fill-color: transparent;'>WARNING</pre><br>"+
             "Dear visitor, <br><br>This portfolio was developed to look like a terminal, it is therefore recomended to continue your visit on a computer."+
